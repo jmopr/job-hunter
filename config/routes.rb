@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
+  root to: 'sessions#new'
+  resource :sessions
   resource :users
 
   get 'jobs_controller/create'
-
   get 'jobs_controller/index'
-
   get 'jobs_controller/destroy'
-
   get 'jobs_controller/show'
 
   # The priority is based upon order of creation: first created -> highest priority.
