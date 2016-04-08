@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'users/new'
+  resource :users
 
   get 'jobs_controller/create'
 
