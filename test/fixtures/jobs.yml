@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  post_date: 2016-04-07
+  description: MyString
+  applied: false
+
+two:
+  title: MyString
+  post_date: 2016-04-07
+  description: MyString
+  applied: false
