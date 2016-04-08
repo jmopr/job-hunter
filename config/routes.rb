@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/new'
+
   get 'jobs_controller/create'
 
   get 'jobs_controller/index'
