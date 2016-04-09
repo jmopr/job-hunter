@@ -8,7 +8,7 @@ class JobsController < ApplicationController
   end
 
   def show
-
+    
     render json: Job.find(params[:id]), status: :ok
   rescue
     render json: {job: {errors: "job not found"}}, status: :not_found

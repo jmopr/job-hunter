@@ -1,22 +1,21 @@
-url = "http://www.indeed.com/jobs?q=Ruby&l=New+York%2C+NY"
-
 require 'capybara/dsl'
 require 'capybara-webkit'
 require 'cgi'
 require 'timeout'
 require 'capybara'
 require 'csv'
+require 'byebug'
+require './matcher'
 
 class JobScraper
   include Capybara::DSL
 
   def initialize url
-    # Capybara.default_driver = :webkit
-    # Capybara.javascript_driver = :webkit
-    Capybara.default_driver = :selenium
-    Capybara.javascript_driver = :selenium
+    Capybara.default_driver = :webkit
+    Capybara.javascript_driver = :webkit
+    # Capybara.default_driver = :selenium
+    # Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
-      # config.allow_url("www.ventureloop.com")
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
     end
@@ -24,107 +23,79 @@ class JobScraper
     @url = url
   end
 
-  def scrape
+  def scrape(skillset, region)
+    @skillset = skillset
+    @region = region
+
     visit @url
-    sleep(2)
-    # login
-    job_information
-
-    within("#resultsCol") do
-      @jobs = all(".row.result")
-      @easy_jobs = @jobs.select do |job|
-        # filter out sponsored jobs && accept "easily apply" jobs
-        job.all('.sdn').length == 0 && job.all('.iaP > span.iaLabel').length > 0
-      end
-
-      links_to_follow = []
-
-      @easy_jobs.each do |job|
-        # get ONLY the job title link
-        job.all("a.turnstileLink[data-tn-element='jobTitle']").each do |x|
-          links_to_follow << x['href']
-        end
-      end
-      links_to_follow.each do |link|
-        visit link
-        sleep(2)
-        p page.find(".job-content").text
-        # p job_title = find(".jobtitle").text
-        # p job_company = find(".company").text
-        # p job_description = find("#job_summary").text
-        
-      end
+    sleep(1)
+    perform_search
+    close_modal
+    filter_jobs
+    gather_requirements do |job_reqs|
+      p job_reqs
+      puts "Match score is #{matching_algorithm(job_reqs).round(2)}% for #{page.current_url}"
     end
   end
 
-  def job_page
-    sleep(2)
-    p find(".job-content").tag_name
+  def gather_requirements
+    @job_requirements = {}
+    # visit the job listing page for a given job
+    @job_links.each do |link|
+      # get a handle on the new window so we capybara can update the page
+      job_listing_window = window_opened_by { link.click }
+      sleep(1)
+      # in the job listings page we opened in a new tab print the job description
+      within_window job_listing_window do
+        reqs = extract_requirements
+        if block_given?
+          yield reqs
+        else
+          @job_requirements[link['href']] = matching_algorithm(reqs)
+        end
+      end
+    end
+
+    @job_requirements unless block_given?
   end
 
-  def job_information
+  def extract_requirements
+    if page.has_selector?("#job-content #job_summary ul li")
+      page.all("#job-content #job_summary ul li").map{|x| x.text}
+    else
+      page.find("#job-content #job_summary").text.split('.')
+    end
+  end
+
+  def filter_jobs
+    @jobs = all("#resultsCol .row.result")
+
+    # filter out sponsored jobs && accept "easily apply" jobs
+    @easy_jobs = @jobs.select { |job| job.all('.sdn').length == 0 && job.all('.iaP > span.iaLabel').length > 0 }
+    # get ONLY the job title link
+    @easy_jobs.each do |job|
+      job.all("a.turnstileLink[data-tn-element='jobTitle']").each do |x|
+        @job_links << x
+      end
+    end
+
+    @job_links
+  end
+
+  def close_modal
+    # check if there is a modal that needs to be closed
+    if page.has_selector?('#prime-popover-close-button')
+      page.find('#prime-popover-close-button').click
+    end
+  end
+
+  def perform_search
     # For indeed
-    fill_in 'q', :with => 'programmer or developer or coder'
-    fill_in 'l', :with => 'Miami, FL'
+    fill_in 'q', :with => @skillset
+    fill_in 'l', :with => @region
     find('#fj').click
-    sleep(2)
+    sleep(1)
   end
 end
 
-
-JobScraper.new('http://www.indeed.com/').scrape
-
-
-  # def scrape
-  #   visit @url
-  #   sleep(2)
-  #   # login
-  #   # job_information
-  #
-  #   within("#resultsCol") do
-  #     @jobs = all(".iaP > span.iaLabel")
-  #     @easy_jobs = @jobs.select { |job| job.text.match(/Easily apply/) } # || job.text.match(/Apply with your Indeed Resume/) }
-  #
-  #     @easy_jobs.each do |job_label|
-  #       ancestor = find_parent(job_label)
-  #       p ancestor.text
-  #       p has_link? ancestor[:href]   #.find("h2.jobtitle > a")
-  #       ancestor.click
-  #       sleep(2)
-  #       # p job_div.tag_name
-  #       # puts job.find(:xpath, '../..').tag_name   #.name
-  #
-  #       #job_link = job.find(:xpath, '..')
-  #
-  #       # find(:xpath, '/".row.result"/..').text   #.fill_in "Name:", :with => name
-  #       # parent_of_parent = node.find(:xpath, '../..')
-  #     end
-
-      # @jobs = all(".row.sjlast.result")
-      # @jobs.each do |job|
-      #   sleep(1)
-      #   if job.has_css?('.iaP')
-      #     # p company = job.find(".company").text
-      #     # p job_title = job.find(".jobtitle.turnstileLink").text
-      #     # p job_description = job.find(".summary").text
-      #
-      #     job.find(".jobtitle.turnstileLink").click
-      #     sleep(3)
-      #     job_page
-      #   end
-      # end
-
-  #   end
-  # end
-
-  def find_parent(job_label)
-    until job_label.has_css?("a.turnstileLink") || job_label.has_css?("a.jobtitle.turnstileLink")
-      job_label = job_label.find(:xpath, '..')
-    end
-    job_label
-  end
-
-  def job_page
-    sleep(2)
-    p find("#apply-state-picker-container", {visible: false})
-  end
+JobScraper.new('http://www.indeed.com/').scrape("Ruby", "New York, NY")
