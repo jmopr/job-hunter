@@ -2,11 +2,8 @@ Rails.application.routes.draw do
   root to: 'sessions#new'
   resource :sessions
   resource :users
-
-  get 'jobs_controller/create'
-  get 'jobs_controller/index'
-  get 'jobs_controller/destroy'
-  get 'jobs_controller/show'
+  resources :jobs
+  get '/search' => 'jobs#search'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
