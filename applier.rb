@@ -19,14 +19,29 @@ class JobApplier
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
     end
-    @job_links = []
     @url = url
   end
 
   def scrape
     visit @url
+    main = page.driver.browser.window_handles.first
+    popup = page.driver.browser.window_handles.last
+    page.driver.browser.switch_to.window(popup)
     sleep(1)
-    
+    link = page.first(".indeed-apply-button")
+    sleep(4)
+    # get a handle on the new window so capybara can update the page
+    # job_apply_window = window_opened_by { link.click }
+    # in the job apply page we open in a new tab print the job description
+    # within_window job_apply_window do
+      # @job_requirements[link['href']] = matching_algorithm(reqs)
+      # sleep(3)
+      p find(".button_inner").text
+      sleep(4)
+
+
+
+    # end
   end
     # perform_search
     # close_modal
@@ -105,4 +120,4 @@ class JobApplier
   # end
 end
 
-JobScraper.new(ARGV.first)
+JobApplier.new(ARGV.first).scrape
