@@ -1,0 +1,22 @@
+<h4> Job Matches </h4>
+<table class="table table-striped table-bordered text-center table table-hover">
+  <tr>
+    <th class="text-center"> Title </th>
+    <th class="text-center"> Company </th>
+    <th class="text-center"> Description </th>
+    <th class="text-center"> Score </th>
+    <th class="text-center"> Post Date </th>
+    <th class="text-center"> URL </th>
+    <th class="text-center"> Apply </th>
+  </tr>
+  <% @jobs.each do |job| %>
+    <td><%= "#{job.title}" %></td>
+    <td><%= "#{job.company}" %></td>
+    <td><%= "#{job.description}" %></td>
+    <td><%= "#{job.score.round(2)}" %></td>
+    <td><%= "#{job.post_date}" %></td>
+    <td><%= "#{job.url}" %></td>
+    <td><%= "#{job.applied}" %></td>
+  </tr>
+  <% end %>
+</table>

@@ -5,10 +5,65 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  <!-- <nav class="navbar navbar-default"> -->
+    <!-- <div class="container-fluid"> -->
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/" id="nav_text">Home</a></li>
+          <li><a href="/employees/index" id="nav_text">General Employee Data</a></li>
+          <li><a href="/departments/1/year/2016" id="nav_text">Department Data</a></li>
+          <li><a href="/departments" id="nav_text">Budget Distribution</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="https://www.facebook.com/miami.dade.county">
+              <img class="socialmedia" src="http://www.clipartbest.com/cliparts/nTX/n6x/nTXn6x4Xc.png"/>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/MiamiDadeCounty">
+              <img class="socialmedia" src="http://stjuliansprimary.com/wp-content/uploads/2013/12/twitter-logo-grey-copy.png"/>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/user/MiamiDadeTV">
+              <img class="socialmedia" src="http://www.intelekti.ge/res/images/youtube_grey.png"/>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/miamidademedia/">
+              <img class="socialmedia" src="http://www.upgradepropertymaintenance.co.uk/icon_instagram.png"/>
+            </a>
+          </li>
+          <% if current_user %>
+          <li id="logout"><%= link_to "Logout", '/logout' %><li>
+            <% else %>
+            <li><%= link_to 'Login', '/login' %></li>
+            <li><%= link_to 'Signup', '/signup' %></li>
+            <% end %>
+          </ul> -->
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
-<%= yield %>
+    <%= yield %>
 
-</body>
+    <!-- <br>
+    <footer>
+      <p> Authors: Juan Ortiz and Rodney Perez </p>
+      <p> &copy;2016 </p>
+    </footer> -->
+  </body>
 </html>

@@ -32,9 +32,17 @@ class JobScraper
     perform_search
     close_modal
     filter_jobs
+
     gather_requirements do |job_reqs|
-      p job_reqs
-      puts "Match score is #{matching_algorithm(job_reqs).round(2)}% for #{page.current_url}"
+      Job.create(
+        title: page.first(".jobtitle").text,
+        description: job_reqs,
+        company: page.first(".company").text,
+        post_date: page.first(".date").text,
+        url: page.current_url,
+        score: matching_algorithm(job_reqs),
+        applied: false
+      )
     end
   end
 
@@ -48,6 +56,7 @@ class JobScraper
       # in the job listings page we opened in a new tab print the job description
       within_window job_listing_window do
         reqs = extract_requirements
+
         if block_given?
           yield reqs
         else
@@ -55,7 +64,6 @@ class JobScraper
         end
       end
     end
-
     @job_requirements unless block_given?
   end
 
