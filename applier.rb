@@ -26,7 +26,7 @@ class JobApplier
   def scrape
     visit @url
     sleep(1)
-
+    
   end
     # perform_search
     # close_modal

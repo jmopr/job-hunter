@@ -7,7 +7,7 @@ class Job < ActiveRecord::Base
   # Apply for the matching jobs.
   def self.apply(jobs)
     jobs.each do |job|
-      %x(bin/rails runner applier.rb)
+      %x(bin/rails runner applier.rb job.url)
     end
   end
 end
