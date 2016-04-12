@@ -26,7 +26,94 @@ class JobApplier
   def scrape
     visit @url
     sleep(1)
-    
+    find('a.indeed-apply-button').click
+    wait_until { page.has_selector?('.indeed-apply-popup', visible: true) }
+    complete_step_1
+    complete_additional_steps
+  end
+
+  def complete_step_1
+    # change q% to Q& once you have your variables
+    cover_letter_body = %q(
+Hey!
+
+Thanks for taking the time to review my application. I actually wrote a script to automatically apply to your job because it looks like it's a #{good|great|excellent} fit for my skills - my matching algorithm actually said there is #{percent}% chance you'd be interested in interviewing me. You can check out the match profile I created for your job posting here: #{url_for_analysis}
+
+I'd really love the opportunity to interview at #{company_name} for the open #{job_title} position.
+
+Thanks again. You can reach me at #{phone_number} if you'd like to chat :smile:
+
+P.S. if you're interested in how my bot is actually handling applications for me, you can check out the source code that applied on github: #{link_to_github_for_your_script}.
+    )
+
+    # there is variation in the apply forms
+    begin
+      fill_in 'First Name', with: 'Juan'
+      fill_in 'Last Name', with: 'Ortiz'
+    rescue
+      fill_in 'Name', with: 'Ortiz'
+    end
+    begin
+      fill_in 'Phone Number (optional)', with: '123-456-7890'
+    rescue
+      fill_in 'Phone Number', with: '123-456-7890'
+    end
+
+    fill_in 'Email', with: 'jmopr@asdfasd.com'
+    fill_in 'Cover Letter (optional)', with: cover_letter_body
+    attach_file('Resume', File.absolute_path('./path to resume'))
+    click 'Continue'
+  end
+
+  def complete_additional_steps
+    # only complete required fields (skip optional)
+    all('label').each do |field|
+      unless field.text.include? 'optional'
+        answer_radio_questions
+        answer_text_questions
+      end
+    end
+
+    until page.has_selector?('input#apply') 
+      complete_additional_steps
+    end
+  end
+
+  def answer_radio_questions
+    # should only be running on required questions
+    # just answer yes all the time or fill in with info
+    all("input[type='radio'][value='1']").each do |radio|
+      choose(radio['id'])
+    end
+  end
+
+  def answer_text_questions
+    # should only be running on required questions
+    answers = {
+      'projects' => "I actually built a data explorer based on salary data for miami dade county: http://codeformiami.herokuapp.com/",
+      'Website' => "data explorer for salary data for miami dade county: http://codeformiami.herokuapp.com/",
+      'LinkedIn' => "https://pr.linkedin.com/in/jmopr",
+      'Reference' => [
+        "Auston Bunsen auston@wyncode.co 954-345-4563",
+        "Rodney Perez rodney@gmail.com 305-345-4563",
+        "Rodney Perez rodney@gmail.com 305-345-4563"
+      ]
+    }
+
+    within('.question-page') do 
+      all('textarea, input[type="text"]').each do |field|
+        # first .find(:xpath, "..") gives us div.input_border
+        # second .find(:xpath, "..") gives us div.input-question
+        question = field.find(:xpath, "..").find(:xpath, "..").find('label')
+
+        # see if any of the 
+        answers.keys.each do |question_we_can_answer|
+          if question.include? question_we_can_answer
+            fill_in question, with: answers[question_we_can_answer]
+          end
+        end
+      end
+    end
   end
     # perform_search
     # close_modal
@@ -105,4 +192,4 @@ class JobApplier
   # end
 end
 
-JobScraper.new(ARGV.first)
+JobApplier.new(ARGV.first)
