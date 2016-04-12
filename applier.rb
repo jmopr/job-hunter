@@ -71,6 +71,7 @@ P.S. if you're interested in how my bot is actually handling applications for me
       unless field.text.include? 'optional'
         answer_radio_questions
         answer_text_questions
+        click 'Continue'
       end
     end
 
