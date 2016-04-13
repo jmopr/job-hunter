@@ -79,6 +79,7 @@ class JobApplier
       unless field.text.include? 'optional'
         answer_radio_questions
         answer_text_questions
+        click 'Continue'
       end
     end
 
