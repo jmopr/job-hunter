@@ -20,6 +20,7 @@ class JobApplier
       config.block_unknown_urls
     end
     @url = url
+    @applied = false
   end
 
   def scrape
@@ -32,7 +33,7 @@ class JobApplier
       page.driver.within_frame(0) do
         complete_step_one
         complete_additional_steps
-        sleep(20)
+        sleep(3)
       end
     end
   end
@@ -42,7 +43,7 @@ class JobApplier
     job_title = find(".jobtitle").text
     phone_number = "787-718-5395"
     link_to_github = "https://github.com/jmopr/job-hunter/blob/master/matcher.rb"
-    percent = "75"
+    percent = 55
     url_for_analysis = "www.indeed.com"
     fit = "great"
     cover_letter_body = %Q(
@@ -58,7 +59,7 @@ class JobApplier
       fill_in 'applicant.firstName', with: 'Juan'
       fill_in 'applicant.lastName', with: 'Ortiz'
     rescue
-      fill_in 'applicant.name', with: 'Ortiz'
+      fill_in 'applicant.name', with: 'Juan Ortiz'
     end
     begin
       fill_in 'applicant.phoneNumber', with: '787-718-5395'
@@ -69,7 +70,7 @@ class JobApplier
     fill_in 'applicant.email', with: 'jmopr83@gmail.com'
     fill_in 'applicant.applicationMessage', with: cover_letter_body
     sleep(5)
-    attach_file('resume', File.absolute_path('./Resume.pdf'))
+    # attach_file('resume', File.absolute_path('./Resume.pdf'))
     page.find('a.button_content.form-page-next', match: :first).click
   end
 
@@ -79,7 +80,11 @@ class JobApplier
       unless field.text.include? 'optional'
         answer_radio_questions
         answer_text_questions
-        click 'Continue'
+        check = click 'Continue'
+        if check == 'ok'
+          @applied = true
+          return @applied
+        end
       end
     end
 
@@ -124,6 +129,10 @@ class JobApplier
         end
       end
     end
+  end
+
+  def category(percentage)
+
   end
 end
 JobApplier.new(ARGV.first).scrape

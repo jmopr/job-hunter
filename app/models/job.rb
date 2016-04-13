@@ -4,6 +4,11 @@ class Job < ActiveRecord::Base
 
   scope :match, -> { where('score > 50') }
 
+  # Searches for jobs.
+  def self.get_jobs
+    %x(bin/rails runner scraper.rb)
+  end
+
   # Apply for the matching jobs.
   def self.apply(jobs)
     jobs.each do |job|

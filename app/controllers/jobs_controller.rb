@@ -3,17 +3,12 @@ class JobsController < ApplicationController
   # before_action :set_note, only: [:show, :edit, :update, :destroy]
   # before_action :require_logged_in
 
-  def search
-    %x(bin/rails runner scraper.rb)
-  end
-
   def new
     @user = current_user
   end
 
   def match
     @jobs = Job.match
-
     Job.apply(@jobs)
   end
 
@@ -25,7 +20,8 @@ class JobsController < ApplicationController
   end
 
   def index
-    @jobs = Job.all
+    Job.get_jobs
+    @job = Job.all
     # render json: Job.list(job_params), status: :ok
   end
 
