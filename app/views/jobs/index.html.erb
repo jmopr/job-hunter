@@ -1,9 +1,7 @@
 
 <%# app/views/records/index.html.erb %>
-  <%@jobs.each do |job| %>
-  <%= react_component( 'Jobs', title: job.title, description: job.description ) %>
 
-  <%end%>
+  <%= react_component( 'JobsBox', jobs: @jobs) %>
 
 <!-- Hey!
 

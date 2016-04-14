@@ -1,13 +1,51 @@
-var Jobs = React.createClass({
-  propTypes: {
-    title: React.PropTypes.string
-  },
 
+
+var JobsList = React.createClass({
+  render: function() {
+    var JobsNodes = this.props.data.map(function(job) {
+      return (
+        <tr key={job.id}>
+          <td>{job.title}</td>
+          <td>{job.description}</td>
+          <td>{job.score}</td>
+          <td>{job.company}</td>
+        </tr>
+      );
+    });
+    return (
+      <tbody>
+        {JobsNodes}
+      </tbody>
+
+
+    );
+  }
+});
+var tableStyle = {
+  width: '100%'
+}
+var JobsTable = React.createClass({
+
+  render: function(){ return (
+    <table style ={tableStyle} >
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Score</th>
+          <th>Company</th>
+        </tr>
+      </thead>
+        <JobsList data = {this.props.data}/>
+    </table>
+  )}
+});
+
+var JobsBox = React.createClass({
   render: function() {
     return (
-      <div>
-        <div>Title: {this.props.title}</div>
-        <div>Description: {this.props.description}</div>
+      <div className="JobsBox">
+        <JobsTable data = {this.props.jobs} />
       </div>
     );
   }
