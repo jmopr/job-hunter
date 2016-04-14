@@ -3,44 +3,51 @@ class JobsController < ApplicationController
   # before_action :set_note, only: [:show, :edit, :update, :destroy]
   # before_action :require_logged_in
 
-  def search
-    @result = %x(bin/rails runner scraper.rb)
+  def new
+    @user = current_user
+  end
+
+  def match
+    @jobs = Job.match
+    Job.apply(@jobs)
   end
 
   def show
-    
-    render json: Job.find(params[:id]), status: :ok
-  rescue
-    render json: {job: {errors: "job not found"}}, status: :not_found
+
+    #   render json: Job.find(params[:id]), status: :ok
+    # rescue
+    #   render json: {job: {errors: "job not found"}}, status: :not_found
   end
 
   def index
-
-    render json: Job.list(job_params), status: :ok
+    Job.get_jobs
+    @jobs = Job.all
+    # render json: Job.list(job_params), status: :ok
   end
 
   def create
-    job = Job.new(job_params)
-
-    if job.save
-
-      render json: job, status: :created, location: job
-    else
-      render json: job.errors, status: :unprocessable_entity
-    end
+    # job = Job.new(job_params)
+    #
+    # if job.save
+    #
+    #   render json: job, status: :created, location: job
+    # else
+    #   render json: job.errors, status: :unprocessable_entity
+    # end
   end
 
   def destroy
     job.destroy(params[:id])
-
-    render json: Job.all
-  rescue
-    render json: {job: {errors: "job not found"}}, status: :not_found
+    render_to search_path
+  #
+  #   render json: Job.all
+  # rescue
+  #   render json: {job: {errors: "job not found"}}, status: :not_found
   end
 
   private
   def job_params
-    params.require(:job).permit(:title, :post_date, :description)
+    params.require(:job).permit(:title, :description)
   end
 
   # # Use callbacks to share common setup or constraints between actions.

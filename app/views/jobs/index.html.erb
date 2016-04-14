@@ -1,0 +1,11 @@
+
+<% if @jobs != nil %>
+<%= @jobs.each do |job| %>
+<p><%= "Title: #{job.title}" %></p>
+<p><%= "Company: #{job.company}" %></p>
+<p><%= "Description: #{job.description}" %></p>
+<p><%= "Score: #{job.score.round(2)}" %>
+<p><%= "Posting Date: #{job.post_date}" %>
+<p><%= "URL: #{job.url}" %>
+<% end %>
+<% end %>
