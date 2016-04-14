@@ -36,11 +36,11 @@ class JobScraper
     gather_requirements do |job_reqs|
       Job.create(
         title: page.first(".jobtitle").text,
-        description: job_reqs,
+        description: job_reqs.join(" "),
         company: page.first(".company").text,
         post_date: page.first(".date").text,
         url: page.current_url,
-        score: matching_algorithm(job_reqs),
+        score: matching_algorithm(job_reqs).round(2),
         applied: false
       )
     end

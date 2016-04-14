@@ -27,7 +27,7 @@ var tableStyle = {
 var JobsTable = React.createClass({
 
   render: function(){ return (
-    <table style ={tableStyle} >
+    <table className= "table table-striped table-bordered table-condensed" style ={tableStyle} >
       <thead>
         <tr>
           <th>Title</th>
