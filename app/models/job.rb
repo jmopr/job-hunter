@@ -5,6 +5,15 @@ class Job < ActiveRecord::Base
 
   scope :match, -> { where('score > 50') }
 
+  def logo_validator(url)
+    res = Faraday.get("https://logo.clearbit.com/#{url}")
+    unless res.status == 200
+      "https://placeholdit.imgix.net/~text?txtsize=33&txt=400%C3%97400&w=400&h=400"
+    else
+      "https://logo.clearbit.com/#{url}"
+    end
+  end
+
   # Searches for jobs.
   def self.get_jobs
     %x(bin/rails r scraper.rb)
