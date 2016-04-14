@@ -14,14 +14,14 @@ class JobsController < ApplicationController
 
   def show
 
-  #   render json: Job.find(params[:id]), status: :ok
-  # rescue
-  #   render json: {job: {errors: "job not found"}}, status: :not_found
+    #   render json: Job.find(params[:id]), status: :ok
+    # rescue
+    #   render json: {job: {errors: "job not found"}}, status: :not_found
   end
 
   def index
     Job.get_jobs
-    @job = Job.all
+    @jobs = Job.all
     # render json: Job.list(job_params), status: :ok
   end
 
