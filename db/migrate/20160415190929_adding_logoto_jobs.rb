@@ -1,4 +1,4 @@
-class AddLogoToJobs < ActiveRecord::Migration
+class AddingLogotoJobs < ActiveRecord::Migration
   def change
     add_column :jobs, :logo, :string
   end

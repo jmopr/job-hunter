@@ -6,13 +6,24 @@ class Job < ActiveRecord::Base
   scope :match, -> { where('score > 50') }
   scope :applied, -> { where(applied: true) }
 
-  def logo_validator(url)
+  # Searches for jobs.
+  def self.get_jobs
+    %x(bin/rails r scraper.rb)
+  end
+
+  def self.logo_validator(url)
     res = Faraday.get("https://logo.clearbit.com/#{url}")
     unless res.status == 200
       "https://placeholdit.imgix.net/~text?txtsize=33&txt=400%C3%97400&w=400&h=400"
     else
       "https://logo.clearbit.com/#{url}"
     end
+  end
+
+  def self.autocomplete(name)
+    res = Faraday.get("https://autocomplete.clearbit.com/v1/companies/suggest?query=:#{name}")
+    url = JSON.parse(res.body)[0]["domain"]
+    Job.logo_validator(url)
   end
 
   # Searches for jobs.

@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+
+<%# app/views/records/index.html.erb %>
+<div class= "container">
+  <%= react_component( 'JobsBox', jobs: @jobs) %>
+</div>
+=======
 
 <% unless @jobs.empty? %>
 <%= @jobs.each do |job| %>
@@ -20,3 +27,4 @@
 
 <%= button_to "Delete", {:controller => :jobs,
       :action => 'destroy', :id => current_user.id }, :method => :delete %>
+>>>>>>> master

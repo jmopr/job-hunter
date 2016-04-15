@@ -16,12 +16,14 @@ class JobsController < ApplicationController
     @jobs = Job.match
   end
 
-  def apply 
+  def apply
     Job.apply(Job.match)
     redirect_to match_path
   end
 
   def show
+
+    @job= Job.find(params[:id])
     @jobs = Job.applied
     #   render json: Job.find(params[:id]), status: :ok
     # rescue
@@ -35,7 +37,10 @@ class JobsController < ApplicationController
   end
 
   def create
-    # job = Job.new(job_params)
+    @job = Job.new(params)
+    @job.logo = @job.autocomplete("carecloud")
+    @job.save
+
     #
     # if job.save
     #
