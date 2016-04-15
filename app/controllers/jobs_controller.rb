@@ -14,14 +14,15 @@ class JobsController < ApplicationController
 
   def match
     @jobs = Job.match
-    # Job.apply(@jobs)
   end
 
-  def apply
-
+  def apply 
+    Job.apply(Job.match)
+    redirect_to match_path
   end
 
   def show
+    @jobs = Job.applied
     #   render json: Job.find(params[:id]), status: :ok
     # rescue
     #   render json: {job: {errors: "job not found"}}, status: :not_found

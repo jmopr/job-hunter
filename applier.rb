@@ -5,12 +5,11 @@ require 'timeout'
 require 'capybara'
 require 'csv'
 require 'byebug'
-require './matcher'
 
 class JobApplier
   include Capybara::DSL
 
-  def initialize url
+  def initialize jobID
     # Capybara.default_driver = :webkit
     # Capybara.javascript_driver = :webkit
     Capybara.default_driver = :selenium
@@ -19,11 +18,13 @@ class JobApplier
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
     end
-    @url = url
+    @job = Job.find(jobID)
   end
 
+
+
   def scrape
-    visit @url
+    visit @job.url
     sleep(1)
     page.find('a.indeed-apply-button', match: :first).click
     sleep(1)
@@ -38,13 +39,13 @@ class JobApplier
   end
 
   def complete_step_one
-    company_name = find(".jobcompany").text
-    job_title = find(".jobtitle").text
+    company_name = @job.company
+    job_title = @job.title
     phone_number = "787-718-5395"
     link_to_github = "https://github.com/jmopr/job-hunter/blob/master/matcher.rb"
-    percent = 55
-    url_for_analysis = "www.indeed.com"
-    fit = "great"
+    percent = @job.score.round(2)
+    url_for_analysis = @job.url
+    fit = category @job.score
     cover_letter_body = %Q(
     Hey!
     Thanks for taking the time to review my application. I actually wrote a script to automatically apply to your job because it looks like it's a #{fit} fit for my skills - my matching algorithm actually said there is #{percent}% chance you'd be interested in interviewing me. You can check out the match profile I created for your job posting here: #{url_for_analysis}
@@ -79,21 +80,18 @@ class JobApplier
       unless field.text.include? 'optional'
         answer_radio_questions
         answer_text_questions
-        check = click 'Continue'
-        job = Job.find(title: job_title)
-        
-        if check == 'ok'
-          job.update(
-            applied: true
-          )
-        end
+        click 'Continue'
       end
     end
 
     until page.has_selector?('input#apply')
       complete_additional_steps
     end
-    # page.find('.button_content', match: :first).click
+    check = page.find('.button_content', match: :first).click
+
+    if check == 'ok'
+      @job.update(applied: true)
+    end
   end
 
   def answer_radio_questions
@@ -112,7 +110,6 @@ class JobApplier
       'LinkedIn' => "https://pr.linkedin.com/in/jmopr",
       'Reference' => [
         "Auston Bunsen auston@wyncode.co 954-345-4563",
-        "Rodney Perez rodney@gmail.com 305-345-4563",
         "Rodney Perez rodney@gmail.com 305-345-4563"
       ]
     }
@@ -133,8 +130,15 @@ class JobApplier
     end
   end
 
-  def category(percentage)
-
+  def category percentage
+    if percentage > 90
+      return 'excellent'
+    elsif percentage > 70 && percentage < 89
+      return 'great'
+    else
+      return 'good'
+    end
   end
 end
-JobApplier.new(ARGV.first).scrape
+
+p JobApplier.new(ARGV.first).scrape
