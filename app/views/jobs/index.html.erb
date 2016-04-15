@@ -1,5 +1,30 @@
+<<<<<<< HEAD
 
 <%# app/views/records/index.html.erb %>
 <div class= "container">
   <%= react_component( 'JobsBox', jobs: @jobs) %>
 </div>
+=======
+
+<% unless @jobs.empty? %>
+<%= @jobs.each do |job| %>
+<p><%= "Title: #{job.title}" %></p>
+<p><%= "Company: #{job.company}" %></p>
+<p><%= "Description: #{job.description}" %></p>
+<p><%= "Score: #{job.score.round(2)}" %>
+<p><%= "Posting Date: #{job.post_date}" %>
+<p><%= "URL: #{job.url}" %>
+<% end %>
+<% end %>
+
+<!-- <%= radio_button_tag(:title, "job") %> -->
+<form method="get" action="search" class="button_to">
+  <input value="Search" type="submit" />
+</form>
+<form method="get" action="jobs/match" class="button_to">
+  <input value="Match Jobs" type="submit" />
+</form>
+
+<%= button_to "Delete", {:controller => :jobs,
+      :action => 'destroy', :id => current_user.id }, :method => :delete %>
+>>>>>>> master

@@ -10,7 +10,6 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
 ActiveRecord::Schema.define(version: 20160415190929) do
 
   create_table "jobs", force: :cascade do |t|
@@ -23,8 +22,12 @@ ActiveRecord::Schema.define(version: 20160415190929) do
     t.string   "company"
     t.string   "url"
     t.float    "score"
+    t.string   "location"
+    t.integer  "user_id"
     t.string   "logo"
   end
+
+  add_index "jobs", ["user_id"], name: "index_jobs_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

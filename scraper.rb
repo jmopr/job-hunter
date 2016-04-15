@@ -3,7 +3,6 @@ require 'capybara-webkit'
 require 'cgi'
 require 'timeout'
 require 'capybara'
-require 'csv'
 require 'byebug'
 require './matcher'
 
@@ -42,7 +41,8 @@ class JobScraper
         url: page.current_url,
         score: matching_algorithm(job_reqs).round(2),
         applied: false,
-        logo: Job.autocomplete(page.first(".company").text)
+        logo: Job.autocomplete(page.first(".company").text),
+        user_id: 1
       )
     end
   end

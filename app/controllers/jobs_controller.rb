@@ -1,27 +1,37 @@
-# require 'capybara/rails'
 class JobsController < ApplicationController
   # before_action :set_note, only: [:show, :edit, :update, :destroy]
-  # before_action :require_logged_in
-
-  def search
-    %x(bin/rails runner scraper.rb)
-  end
+  before_action :require_logged_in
 
   def new
-    @user = current_user
+    # @user = current_user
+    @job = Job.new
+  end
+
+  def search
+    @jobs = Job.get_jobs
+    redirect_to users_path
   end
 
   def match
     @jobs = Job.match
+  end
 
-    Job.apply(@jobs)
+  def apply
+    Job.apply(Job.match)
+    redirect_to match_path
   end
 
   def show
+
     @job= Job.find(params[:id])
+    @jobs = Job.applied
+    #   render json: Job.find(params[:id]), status: :ok
+    # rescue
+    #   render json: {job: {errors: "job not found"}}, status: :not_found
   end
 
   def index
+    @user = current_user
     @jobs = Job.all
     # render json: Job.list(job_params), status: :ok
   end
@@ -41,9 +51,8 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    job.destroy(params[:id])
-    render_to search_path
-  #
+    Job.destroy_all
+    redirect_to users_jobs_path
   #   render json: Job.all
   # rescue
   #   render json: {job: {errors: "job not found"}}, status: :not_found

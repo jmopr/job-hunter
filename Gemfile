@@ -35,11 +35,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'react-rails'
-gem 'faraday', '~> 0.9.2'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'faraday', '~> 0.9.2'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

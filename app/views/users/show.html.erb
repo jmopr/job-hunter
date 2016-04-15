@@ -1,0 +1,19 @@
+<h4><%= @user.username %></h4>
+
+<% unless @user.jobs.empty? %>
+<%= (@user.jobs).each do |job| %>
+<p><%= "Title: #{job.title}" %></p>
+<p><%= "Company: #{job.company}" %></p>
+<p><%= "Description: #{job.description}" %></p>
+<p><%= "Score: #{job.score.round(2)}" %></p>
+<p><%= "Posting Date: #{job.post_date}" %></p>
+<p><%= "URL: #{job.url}" %></p>
+<p><%= "Applied: #{job.applied}" %></p>
+<% end %>
+<% else %>
+<h4><%= "No jobs found associated with #{@user.username}" %></h4>
+<% end %>
+<%= button_to "Search Jobs", {:controller => :jobs,
+      :action => 'search', :id => current_user.id }, :method => :get %>
+<%= button_to "Match Jobs", {:controller => :jobs,
+      :action => 'match', :id => current_user.id }, :method => :get %>

@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   root to: 'sessions#new'
   resource :sessions
-  resource :users
-  resources :jobs
-  get '/search' => 'jobs#search'
+  resource :users do
+    resources :jobs
+  end
+
   get '/match' => 'jobs#match'
+  get '/search' => 'jobs#search'
+  get '/apply' => 'jobs#apply'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

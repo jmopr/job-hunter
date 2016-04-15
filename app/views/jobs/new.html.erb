@@ -1,1 +1,11 @@
 
+
+<%= form_for(search_path, action: "search", method: :get) do |f| %>
+  <h6>what</h6>
+  <%= f.text_field :title %>
+  <h6>Enter job title or keywords</h6>
+  <h6>where</h6>
+  <%= f.text_field :location %>
+  <h6>Enter city, state or zip code</h6>
+  <%= f.submit "Search" %>
+<% end %>
