@@ -1,5 +1,5 @@
 
-<% if @jobs != nil %>
+<% unless @jobs.empty? %>
 <%= @jobs.each do |job| %>
 <p><%= "Title: #{job.title}" %></p>
 <p><%= "Company: #{job.company}" %></p>
@@ -9,3 +9,14 @@
 <p><%= "URL: #{job.url}" %>
 <% end %>
 <% end %>
+
+<!-- <%= radio_button_tag(:title, "job") %> -->
+<form method="get" action="search" class="button_to">
+  <input value="Search" type="submit" />
+</form>
+<form method="get" action="jobs/match" class="button_to">
+  <input value="Match Jobs" type="submit" />
+</form>
+
+<%= button_to "Delete", {:controller => :jobs,
+      :action => 'destroy', :id => current_user.id }, :method => :delete %>

@@ -41,6 +41,7 @@ class JobScraper
         post_date: page.first(".date").text,
         url: page.current_url,
         score: matching_algorithm(job_reqs),
+        user_id: 1,
         applied: false
       )
     end

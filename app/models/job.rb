@@ -16,7 +16,7 @@ class Job < ActiveRecord::Base
 
   # Searches for jobs.
   def self.get_jobs
-    %x(bin/rails r scraper.rb)
+    %x(bin/rails r scraper.rb )
   end
 
   # Apply for the matching jobs.

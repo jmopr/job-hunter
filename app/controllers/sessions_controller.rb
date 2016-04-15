@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
     if @user
       # logged in, hooray
       session[:user_id] = @user.id
-      redirect_to jobs_path
+      redirect_to users_path
     else
       render action: 'new'
     end
   end
-end 
+end

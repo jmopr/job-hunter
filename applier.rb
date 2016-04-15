@@ -20,7 +20,6 @@ class JobApplier
       config.block_unknown_urls
     end
     @url = url
-    @applied = false
   end
 
   def scrape
@@ -70,7 +69,7 @@ class JobApplier
     fill_in 'applicant.email', with: 'jmopr83@gmail.com'
     fill_in 'applicant.applicationMessage', with: cover_letter_body
     sleep(5)
-    # attach_file('resume', File.absolute_path('./Resume.pdf'))
+    attach_file('resume', File.absolute_path('./Resume.pdf'))
     page.find('a.button_content.form-page-next', match: :first).click
   end
 
@@ -81,9 +80,12 @@ class JobApplier
         answer_radio_questions
         answer_text_questions
         check = click 'Continue'
+        job = Job.find(title: job_title)
+        
         if check == 'ok'
-          @applied = true
-          return @applied
+          job.update(
+            applied: true
+          )
         end
       end
     end
