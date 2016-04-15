@@ -1,5 +1,4 @@
 
-
 var JobsList = React.createClass({
   render: function() {
     var JobsNodes = this.props.data.map(function(job) {
@@ -16,8 +15,6 @@ var JobsList = React.createClass({
       <tbody>
         {JobsNodes}
       </tbody>
-
-
     );
   }
 });

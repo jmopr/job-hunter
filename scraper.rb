@@ -41,7 +41,8 @@ class JobScraper
         post_date: page.first(".date").text,
         url: page.current_url,
         score: matching_algorithm(job_reqs).round(2),
-        applied: false
+        applied: false,
+        logo: Job.autocomplete(page.first(".company").text)
       )
     end
   end

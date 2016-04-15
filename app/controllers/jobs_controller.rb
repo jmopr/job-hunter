@@ -18,10 +18,7 @@ class JobsController < ApplicationController
   end
 
   def show
-
-  #   render json: Job.find(params[:id]), status: :ok
-  # rescue
-  #   render json: {job: {errors: "job not found"}}, status: :not_found
+    @job= Job.find(params[:id])
   end
 
   def index
@@ -30,7 +27,10 @@ class JobsController < ApplicationController
   end
 
   def create
-    # job = Job.new(job_params)
+    @job = Job.new(params)
+    @job.logo = @job.autocomplete("carecloud")
+    @job.save
+
     #
     # if job.save
     #
