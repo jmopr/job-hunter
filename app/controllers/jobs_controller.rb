@@ -18,7 +18,7 @@ class JobsController < ApplicationController
 
   def apply
     Job.apply(Job.match)
-    redirect_to match_path
+    redirect_to users_match_path
   end
 
   def show
