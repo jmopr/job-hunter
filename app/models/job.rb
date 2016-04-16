@@ -23,7 +23,7 @@ class Job < ActiveRecord::Base
 
   # Searches for jobs.
   def self.get_jobs(title, location)
-    %x(bin/rails r scraper.rb #{title})
+    %x(bin/rails r scraper.rb "#{title}" "#{location}")
   end
 
   # Apply for the matching jobs.
