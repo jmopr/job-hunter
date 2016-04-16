@@ -3,11 +3,15 @@
   <%= react_component( 'JobsBox', jobs: @jobs) %>
 </div>
 
-<!-- <%= radio_button_tag(:title, "job") %> -->
-<form method="get" action="search" class="button_to">
-  <input value="Search" type="submit" />
-</form>
-<form method="get" action="jobs/match" class="button_to">
+<%= form_tag("/search", method: "get") do %>
+  <%= label_tag(:title, "Enter job title or keywords") %>
+  <%= text_field_tag(:title, nil, placeholder: 'Job Title') %>
+  <%= label_tag(:location, "Enter city, state or zip code") %>
+  <%= text_field_tag(:location, nil, placeholder: 'City') %>
+  <%= submit_tag("Find Jobs") %>
+<% end %>
+
+<form method="get" action="match" class="button_to">
   <input value="Match Jobs" type="submit" />
 </form>
 

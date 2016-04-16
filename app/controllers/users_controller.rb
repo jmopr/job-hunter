@@ -10,8 +10,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
-      redirect_to root_path, notice: "Created user"
+      redirect_to users_jobs_path, notice: "Created user"
     else
+      flash[:error] = "Invalid email/password combination."
       render action: 'new'
     end
   end

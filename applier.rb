@@ -3,8 +3,6 @@ require 'capybara-webkit'
 require 'cgi'
 require 'timeout'
 require 'capybara'
-require 'csv'
-require 'byebug'
 
 class JobApplier
   include Capybara::DSL
@@ -33,7 +31,6 @@ class JobApplier
       page.driver.within_frame(0) do
         complete_step_one
         complete_additional_steps
-        sleep(3)
       end
     end
   end
@@ -61,15 +58,10 @@ class JobApplier
     rescue
       fill_in 'applicant.name', with: 'Juan Ortiz'
     end
-    begin
-      fill_in 'applicant.phoneNumber', with: '787-718-5395'
-    rescue
-      fill_in 'applicant.phoneNumber', with: '787-718-5395'
-    end
 
+    fill_in 'applicant.phoneNumber', with: '787-718-5395'
     fill_in 'applicant.email', with: 'jmopr83@gmail.com'
     fill_in 'applicant.applicationMessage', with: cover_letter_body
-    sleep(5)
     attach_file('resume', File.absolute_path('./Resume.pdf'))
     page.find('a.button_content.form-page-next', match: :first).click
   end
@@ -81,6 +73,7 @@ class JobApplier
         answer_radio_questions
         answer_text_questions
         click 'Continue'
+        sleep(1)
       end
     end
 
@@ -92,6 +85,7 @@ class JobApplier
     if check == 'ok'
       @job.update(applied: true)
     end
+    sleep(2)
   end
 
   def answer_radio_questions
@@ -132,13 +126,13 @@ class JobApplier
 
   def category percentage
     if percentage > 90
-      return 'excellent'
+      'excellent'
     elsif percentage > 70 && percentage < 89
-      return 'great'
+      'great'
     else
-      return 'good'
+      'good'
     end
   end
 end
 
-p JobApplier.new(ARGV.first).scrape
+JobApplier.new(ARGV.first).scrape

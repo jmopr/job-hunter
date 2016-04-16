@@ -8,8 +8,8 @@ class JobsController < ApplicationController
   end
 
   def search
-    @jobs = Job.get_jobs
-    redirect_to users_path
+    @jobs = Job.get_jobs(params[:title], params[:location])
+    redirect_to users_jobs_path
   end
 
   def match
@@ -22,7 +22,6 @@ class JobsController < ApplicationController
   end
 
   def show
-
     @job= Job.find(params[:id])
     @jobs = Job.applied
     #   render json: Job.find(params[:id]), status: :ok

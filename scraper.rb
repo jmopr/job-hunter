@@ -3,7 +3,6 @@ require 'capybara-webkit'
 require 'cgi'
 require 'timeout'
 require 'capybara'
-require 'byebug'
 require './matcher'
 
 class JobScraper
@@ -107,4 +106,4 @@ class JobScraper
   end
 end
 
-JobScraper.new('http://www.indeed.com/').scrape("Ruby", "New York, NY")
+JobScraper.new('http://www.indeed.com/').scrape(ARGV.first, "Miami")

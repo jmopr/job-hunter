@@ -1,15 +1,15 @@
 <h1>Sign up</h1>
-  <%= form_for @user do |f| %>
+  <%= form_for @user, url: users_path do |f| %>
     <p>
-      <%= f.label :username %> <%= f.text_field :username %>
+      <%= f.label :username %> <%= f.text_field :username, placeholder: "username" %>
     </p>
     <p>
-      <%= f.label :password %> <%= f.password_field :password %>
+      <%= f.label :password %> <%= f.password_field :password, placeholder: "password" %>
     </p>
     <p>
-      <%= f.label :password_confirmation %> <%= f.password_field :password_confirmation %>
+      <%= f.label :password_confirmation %> <%= f.password_field :password_confirmation, placeholder: "password" %>
     </p>
     <p>
-      <%= f.submit %>
+      <%= f.submit "Sign Up" %>
     </p>
   <% end %>
