@@ -1,3 +1,10 @@
 <div class= "container">
-  <%= react_component( 'CoverLetter', job: @job) %>
+  <%= react_component( 'CoverPage', job: @job, ) %>
 </div>
+
+<script>
+ window.onload = function(){var numAnim = new CountUp("number-lines", 0, 10000, 0, 2.5)
+numAnim.start();
+var numAnimtoo = new CountUp("number-projects", 0, 25, 0, 2.5)
+numAnimtoo.start();};
+</script>
