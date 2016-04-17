@@ -2,6 +2,10 @@
   <%= react_component('JobsBox', jobs: @jobs) %>
 </div>
 
+<div class= "container">
+  <%= react_component('SearchBar', jobs: @jobs) %>
+</div>
+
 <%= form_tag("/search", method: "get") do %>
   <%= label_tag(:title, "Enter job title or keywords") %>
   <%= text_field_tag(:title, nil, placeholder: 'Job Title') %>

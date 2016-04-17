@@ -1,4 +1,3 @@
-
 var JobsList = React.createClass({
   render: function() {
     var JobsNodes = this.props.data.map(function(job) {
@@ -33,6 +32,7 @@ var JobsTable = React.createClass({
           <th>Company</th>
         </tr>
       </thead>
+
         <JobsList data = {this.props.data}/>
     </table>
   )}
@@ -44,6 +44,46 @@ var JobsBox = React.createClass({
       <div className="JobsBox">
         <JobsTable data = {this.props.jobs} />
       </div>
+    );
+  }
+});
+
+var FilterableProductTable = React.createClass({
+  getInitialState: function() {
+    return {
+      filterText: ''
+    };
+  },
+
+  render: function() {
+    return (
+      <div>
+        <SearchBar
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+        />
+        <ProductTable
+          products={this.props.products}
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+        />
+      </div>
+    );
+  }
+});
+
+var SearchBar = React.createClass({
+  render: function() {
+    return (
+      <form>
+        <input type="text" placeholder="Job Title" />
+        <input type="text" placeholder="City" />
+        <p>
+          <input type="checkbox" checked={this.props.score > 50}/>
+          {' '}
+          Show match jobs only
+        </p>
+      </form>
     );
   }
 });
