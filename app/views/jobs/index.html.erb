@@ -10,6 +10,10 @@
   <%= submit_tag("Find Jobs") %>
 <% end %>
 
+<p>
+  <%= link_to 'My PDF', @user.document.url %>
+</p>
+
 <form method="get" action="match" class="button_to">
   <input value="Match Jobs" type="submit" />
 </form>
