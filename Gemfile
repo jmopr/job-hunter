@@ -33,6 +33,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'react-rails'
 
+gem "paperclip"
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'faraday', '~> 0.9.2'

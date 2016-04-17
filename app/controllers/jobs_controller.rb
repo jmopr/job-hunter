@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   # before_action :set_note, only: [:show, :edit, :update, :destroy]
-  before_action :require_logged_in
+  before_action :require_logged_in, only: [:show, :match, :destroy]
 
   def new
     @job = Job.new
