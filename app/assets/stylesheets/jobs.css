@@ -18,6 +18,8 @@ body {
   color: #fff;
   text-align: center;
   padding-top: 350px;
+  padding-left: 1em;
+  padding-right: 1em;
   border-bottom: 1px solid #333;
 }
 @media (min-width: 768px) {
