@@ -10,7 +10,8 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema.define(version: 20160415190929) do
+
+ActiveRecord::Schema.define(version: 20160417021411) do
 
   create_table "jobs", force: :cascade do |t|
     t.string   "title"
@@ -34,6 +35,12 @@ ActiveRecord::Schema.define(version: 20160415190929) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "email"
+    t.string   "phone_number"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "github"
+    t.string   "linkedin"
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true

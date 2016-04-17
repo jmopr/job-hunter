@@ -19,8 +19,6 @@ class JobApplier
     @job = Job.find(jobID)
   end
 
-
-
   def scrape
     visit @job.url
     sleep(1)
