@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417021411) do
+ActiveRecord::Schema.define(version: 20160417050943) do
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "jobs", force: :cascade do |t|
     t.string   "title"
@@ -23,9 +39,9 @@ ActiveRecord::Schema.define(version: 20160417021411) do
     t.string   "company"
     t.string   "url"
     t.float    "score"
+    t.string   "logo"
     t.string   "location"
     t.integer  "user_id"
-    t.string   "logo"
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id"
@@ -33,14 +49,16 @@ ActiveRecord::Schema.define(version: 20160417021411) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "email"
     t.string   "phone_number"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "github"
     t.string   "linkedin"
+    t.integer  "number_of_lines"
+    t.integer  "number_of_projects"
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true
