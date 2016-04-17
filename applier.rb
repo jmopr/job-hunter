@@ -91,7 +91,7 @@ class JobApplier
   def answer_radio_questions
     # should only be running on required questions
     # just answer yes all the time or fill in with info
-    all("input[type='radio'][value='1']").each do |radio|
+    all("input[type='radio'][value='0']").each do |radio|
       choose(radio['id'])
     end
   end

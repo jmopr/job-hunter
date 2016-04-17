@@ -28,22 +28,47 @@ class JobScraper
     visit @url
     sleep(1)
     perform_search
+    search
+  end
+
+  def search
     close_modal
     filter_jobs
 
     gather_requirements do |job_reqs|
       Job.create(
-        title: page.first(".jobtitle").text,
-        description: job_reqs.join(" "),
-        company: page.first(".company").text,
-        location: page.first(".location").text,
-        post_date: page.first(".date").text,
-        url: page.current_url,
-        score: matching_algorithm(job_reqs).round(2),
-        applied: false,
-        logo: Job.autocomplete(:company),
-        user_id: 1
+      title: page.first(".jobtitle").text,
+      description: job_reqs.join(" "),
+      company: page.first(".company").text,
+      location: page.first(".location").text,
+      post_date: page.first(".date").text,
+      url: page.current_url,
+      score: matching_algorithm(job_reqs).round(2),
+      applied: false,
+      logo: Job.autocomplete(:company),
+      user_id: 1
       )
+    end
+    next_page
+  end
+
+  def next_page
+    if page.find('.np', match: :first).text == "Next »"
+      continue = page.find('.np', match: :first)
+    elsif page.all('.np').length > 1
+      continue = page.all('.np')[1]
+    else
+      continue = "stop"
+    end
+    unless continue == "stop"
+      next_link = continue.find(:xpath, '../..')
+      next_link.click
+      sleep(1)
+      if page.has_selector?('.popover-x-span')
+        page.find('.popover-x-span').click
+      end
+      sleep(1)
+      search
     end
   end
 
@@ -65,6 +90,7 @@ class JobScraper
         end
       end
     end
+    @job_links = []
     @job_requirements unless block_given?
   end
 
@@ -78,7 +104,6 @@ class JobScraper
 
   def filter_jobs
     @jobs = all("#resultsCol .row.result")
-
     # filter out sponsored jobs && accept "easily apply" jobs
     @easy_jobs = @jobs.select { |job| job.all('.sdn').length == 0 && job.all('.iaP > span.iaLabel').length > 0 }
     # get ONLY the job title link
@@ -87,7 +112,6 @@ class JobScraper
         @job_links << x
       end
     end
-
     @job_links
   end
 
