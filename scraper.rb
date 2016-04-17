@@ -87,11 +87,12 @@ class JobScraper
       # in the job listings page we opened in a new tab print the job description
       within_window job_listing_window do
         reqs = extract_requirements
-
-        if block_given?
-          yield reqs
-        else
-          @job_requirements[link['href']] = matching_algorithm(reqs)
+        if reqs != nil
+          if block_given?
+            yield reqs
+          else
+            @job_requirements[link['href']] = matching_algorithm(reqs)
+          end
         end
       end
     end
