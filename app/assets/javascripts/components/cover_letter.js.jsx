@@ -62,7 +62,7 @@ var CoverBox = React.createClass({
           </div>
 
           <div className="loc block">
-            <div id="number-projects"></div><br/>
+            <div id="number-projects"></div>
           <span>Github Projects</span>
           </div>
         </div>
