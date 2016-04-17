@@ -7,11 +7,6 @@ if(8 < d.getHours() && d.getHours()< 20){
   return "You can e-mail me by clicking the \"Let's talk!\" button below."
 }}
 
-var number_of_projects= function(){$.get( "https://api.github.com/users/jmopr/repos", function( data ) {
-  var number= data.length
-  return number.toString();
-});
-}
 
 
 var CoverPage = React.createClass({
@@ -61,13 +56,13 @@ var CoverBox = React.createClass({
             {this.props.job.score}% <br/>
             <span>Match</span>
           </div>
-          <div className="loc block">
-            {}<br/>
-          <span>Lines of Ruby written</span>
-
+          <div className="loc block" >
+            <div id="number-lines"></div>
+            <span>Lines of Ruby written</span>
           </div>
+
           <div className="loc block">
-            {}<br/>
+            <div id="number-projects"></div><br/>
           <span>Github Projects</span>
           </div>
         </div>

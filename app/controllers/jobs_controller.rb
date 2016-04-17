@@ -22,9 +22,7 @@ class JobsController < ApplicationController
   end
 
   def show
-
     @job= Job.find(params[:id])
-    @number=@job.delay.get_the_bytes("jmopr")
     @jobs = Job.applied
     #   render json: Job.find(params[:id]), status: :ok
     # rescue
