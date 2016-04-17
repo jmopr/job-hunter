@@ -7,11 +7,6 @@ class Job < ActiveRecord::Base
   scope :match, -> { where('score > 50') }
   scope :applied, -> { where(applied: true) }
 
-  # Searches for jobs.
-  def self.get_jobs
-    %x(bin/rails r scraper.rb)
-  end
-
   def self.logo_validator(url)
     res = Faraday.get("https://logo.clearbit.com/#{url}")
     unless res.status == 200
@@ -28,14 +23,15 @@ class Job < ActiveRecord::Base
   end
 
   # Searches for jobs.
-  def self.get_jobs
-    %x(bin/rails r scraper.rb)
+  def self.get_jobs(title, location)
+    %x(bin/rails r scraper.rb "#{title}" "#{location}")
   end
 
   # Apply for the matching jobs.
-  def self.apply(jobs)
+  def self.apply(user, jobs)
+    byebug
     jobs.each do |job|
-      %x(bin/rails r applier.rb #{job.id})
+      %x(bin/rails r applier.rb "#{user.id}" "#{job.id}")
     end
   end
 

@@ -3,13 +3,11 @@ require 'capybara-webkit'
 require 'cgi'
 require 'timeout'
 require 'capybara'
-require 'csv'
-require 'byebug'
 
 class JobApplier
   include Capybara::DSL
 
-  def initialize jobID
+  def initialize(userID, jobID)
     # Capybara.default_driver = :webkit
     # Capybara.javascript_driver = :webkit
     Capybara.default_driver = :selenium
@@ -19,9 +17,8 @@ class JobApplier
       config.block_unknown_urls
     end
     @job = Job.find(jobID)
+    @user = User.find(userID)
   end
-
-
 
   def scrape
     visit @job.url
@@ -33,7 +30,6 @@ class JobApplier
       page.driver.within_frame(0) do
         complete_step_one
         complete_additional_steps
-        sleep(3)
       end
     end
   end
@@ -41,7 +37,7 @@ class JobApplier
   def complete_step_one
     company_name = @job.company
     job_title = @job.title
-    phone_number = "787-718-5395"
+    phone_number = @user.phone_number
     link_to_github = "https://github.com/jmopr/job-hunter/blob/master/matcher.rb"
     percent = @job.score.round(2)
     url_for_analysis = @job.url
@@ -56,20 +52,16 @@ class JobApplier
 
     # there is variation in the apply forms
     begin
-      fill_in 'applicant.firstName', with: 'Juan'
-      fill_in 'applicant.lastName', with: 'Ortiz'
+      fill_in 'applicant.firstName', with: @user.first_name
+      fill_in 'applicant.lastName', with: @user.last_name
     rescue
-      fill_in 'applicant.name', with: 'Juan Ortiz'
-    end
-    begin
-      fill_in 'applicant.phoneNumber', with: '787-718-5395'
-    rescue
-      fill_in 'applicant.phoneNumber', with: '787-718-5395'
+      fill_in 'applicant.name', with: "#{@user.first_name} #{@user.last_name}"
     end
 
-    fill_in 'applicant.email', with: 'jmopr83@gmail.com'
+    fill_in 'applicant.phoneNumber', with: @user.phone_number
+    fill_in 'applicant.email', with: @user.email
     fill_in 'applicant.applicationMessage', with: cover_letter_body
-    sleep(5)
+    sleep(20)
     attach_file('resume', File.absolute_path('./Resume.pdf'))
     page.find('a.button_content.form-page-next', match: :first).click
   end
@@ -81,6 +73,7 @@ class JobApplier
         answer_radio_questions
         answer_text_questions
         click 'Continue'
+        sleep(1)
       end
     end
 
@@ -92,12 +85,13 @@ class JobApplier
     if check == 'ok'
       @job.update(applied: true)
     end
+    sleep(2)
   end
 
   def answer_radio_questions
     # should only be running on required questions
     # just answer yes all the time or fill in with info
-    all("input[type='radio'][value='1']").each do |radio|
+    all("input[type='radio'][value='0']").each do |radio|
       choose(radio['id'])
     end
   end
@@ -132,13 +126,13 @@ class JobApplier
 
   def category percentage
     if percentage > 90
-      return 'excellent'
+      'excellent'
     elsif percentage > 70 && percentage < 89
-      return 'great'
+      'great'
     else
-      return 'good'
+      'good'
     end
   end
 end
 
-p JobApplier.new(ARGV.first).scrape
+JobApplier.new(ARGV[0], ARGV[1]).scrape

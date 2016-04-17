@@ -3,13 +3,12 @@ class JobsController < ApplicationController
   before_action :require_logged_in
 
   def new
-    # @user = current_user
     @job = Job.new
   end
 
   def search
-    @jobs = Job.get_jobs
-    redirect_to users_path
+    @jobs = Job.get_jobs(params[:title], params[:location])
+    redirect_to users_jobs_path
   end
 
   def match
@@ -17,8 +16,9 @@ class JobsController < ApplicationController
   end
 
   def apply
-    Job.apply(Job.match)
-    redirect_to match_path
+    @user = current_user
+    Job.apply(@user, Job.match)
+    redirect_to users_match_path
   end
 
   def show
@@ -30,7 +30,6 @@ class JobsController < ApplicationController
   end
 
   def index
-    @user = current_user
     @jobs = Job.all
     # render json: Job.list(job_params), status: :ok
   end
@@ -39,8 +38,6 @@ class JobsController < ApplicationController
     @job = Job.new(params)
     @job.logo = @job.autocomplete("carecloud")
     @job.save
-
-    #
     # if job.save
     #
     #   render json: job, status: :created, location: job
