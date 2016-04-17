@@ -3,7 +3,6 @@ class JobsController < ApplicationController
   before_action :require_logged_in
 
   def new
-    # @user = current_user
     @job = Job.new
   end
 
@@ -31,7 +30,6 @@ class JobsController < ApplicationController
   end
 
   def index
-    @user = current_user
     @jobs = Job.all
     # render json: Job.list(job_params), status: :ok
   end
@@ -40,8 +38,6 @@ class JobsController < ApplicationController
     @job = Job.new(params)
     @job.logo = @job.autocomplete("carecloud")
     @job.save
-
-    #
     # if job.save
     #
     #   render json: job, status: :created, location: job
