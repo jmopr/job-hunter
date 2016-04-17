@@ -1,0 +1,79 @@
+body {
+ font-family: 'Ubuntu', sans-serif;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+#hello{
+  font-size: 4em;
+  margin-bottom: 1em;
+}
+
+#profile-pic{
+  background: url('http://i1064.photobucket.com/albums/u379/rodney_perez1/Juan_zpsqp83ggm6.jpg') no-repeat;
+  background-size: cover;
+  height: 43em;
+  margin: -66px -60px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  color: #fff;
+  text-align: center;
+  padding-top: 350px;
+  border-bottom: 1px solid #333;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+.center-internal{
+  text-align: center;
+}
+img {
+mix-blend-mode: inherit;
+ border: 3px solid #333;
+ border-radius:25%;
+  margin: 0 auto;
+}
+.prec{
+    top: 30px;
+    position: relative;
+    font-size:25px;
+    color: green;
+}
+
+.circle{
+    position: relative;
+    top: 5px;
+    left: 5px;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: #eee;
+}
+
+.active-border{
+    position: relative;
+    text-align: left;
+    width: 110px;
+    height: 110px;
+    border-radius: 100%;
+    background-color:green;
+    background-image:
+      linear-gradient(180deg, transparent 50%, green 50% ),
+      linear-gradient(90deg, #cccccc 50%, transparent 50%);
+  margin:0 auto;
+}
+
+.jumbotron{
+  border: 1px solid #333;
+}
+
+.block{
+  float: left;
+  border-right: 1px solid #333;
+  margin-bottom: 40px;
+}

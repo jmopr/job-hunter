@@ -39,6 +39,8 @@ gem 'react-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'faraday', '~> 0.9.2'
+gem 'httparty', '~> 0.13.7'
+gem 'delayed_job_active_record'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
