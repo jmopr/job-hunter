@@ -25,6 +25,6 @@ class User < ActiveRecord::Base
           lines << project/40
         end
       end
-      lines.reduce(: )
+      [lines.reduce(:+), names.length]
     end
 end
