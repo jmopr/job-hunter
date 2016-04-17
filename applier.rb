@@ -7,7 +7,7 @@ require 'capybara'
 class JobApplier
   include Capybara::DSL
 
-  def initialize jobID
+  def initialize(userID, jobID)
     # Capybara.default_driver = :webkit
     # Capybara.javascript_driver = :webkit
     Capybara.default_driver = :selenium
@@ -17,6 +17,7 @@ class JobApplier
       config.block_unknown_urls
     end
     @job = Job.find(jobID)
+    @user = User.find(userID)
   end
 
   def scrape
@@ -36,7 +37,7 @@ class JobApplier
   def complete_step_one
     company_name = @job.company
     job_title = @job.title
-    phone_number = "787-718-5395"
+    phone_number = @user.phone_number
     link_to_github = "https://github.com/jmopr/job-hunter/blob/master/matcher.rb"
     percent = @job.score.round(2)
     url_for_analysis = @job.url
@@ -51,15 +52,16 @@ class JobApplier
 
     # there is variation in the apply forms
     begin
-      fill_in 'applicant.firstName', with: 'Juan'
-      fill_in 'applicant.lastName', with: 'Ortiz'
+      fill_in 'applicant.firstName', with: @user.first_name
+      fill_in 'applicant.lastName', with: @user.last_name
     rescue
-      fill_in 'applicant.name', with: 'Juan Ortiz'
+      fill_in 'applicant.name', with: "#{@user.first_name} #{@user.last_name}"
     end
 
-    fill_in 'applicant.phoneNumber', with: '787-718-5395'
-    fill_in 'applicant.email', with: 'jmopr83@gmail.com'
+    fill_in 'applicant.phoneNumber', with: @user.phone_number
+    fill_in 'applicant.email', with: @user.email
     fill_in 'applicant.applicationMessage', with: cover_letter_body
+    sleep(20)
     attach_file('resume', File.absolute_path('./Resume.pdf'))
     page.find('a.button_content.form-page-next', match: :first).click
   end
@@ -133,4 +135,4 @@ class JobApplier
   end
 end
 
-JobApplier.new(ARGV.first).scrape
+JobApplier.new(ARGV[0], ARGV[1]).scrape

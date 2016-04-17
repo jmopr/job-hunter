@@ -27,9 +27,10 @@ class Job < ActiveRecord::Base
   end
 
   # Apply for the matching jobs.
-  def self.apply(jobs)
+  def self.apply(user, jobs)
+    byebug
     jobs.each do |job|
-      %x(bin/rails r applier.rb #{job.id})
+      %x(bin/rails r applier.rb "#{user.id}" "#{job.id}")
     end
   end
 end

@@ -17,7 +17,8 @@ class JobsController < ApplicationController
   end
 
   def apply
-    Job.apply(Job.match)
+    @user = current_user
+    Job.apply(@user, Job.match)
     redirect_to users_match_path
   end
 
