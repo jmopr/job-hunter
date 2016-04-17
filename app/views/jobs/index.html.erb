@@ -1,6 +1,5 @@
-<%# app/views/records/index.html.erb %>
 <div class= "container">
-  <%= react_component( 'JobsBox', jobs: @jobs) %>
+  <%= react_component('JobsBox', jobs: @jobs) %>
 </div>
 
 <%= form_tag("/search", method: "get") do %>

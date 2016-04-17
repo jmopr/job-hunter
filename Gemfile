@@ -2,12 +2,9 @@ source 'https://rubygems.org'
 
 gem 'selenium'
 gem 'selenium-webdriver'
-#gem 'capybara/dsl'
 gem 'capybara-webkit'
-# gem 'cgi'
 gem 'timeout'
 gem 'capybara'
-# gem 'csv'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
