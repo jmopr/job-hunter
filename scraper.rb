@@ -8,17 +8,19 @@ require './matcher'
 class JobScraper
   include Capybara::DSL
 
-  def initialize url
-    Capybara.default_driver = :webkit
-    Capybara.javascript_driver = :webkit
-    # Capybara.default_driver = :selenium
-    # Capybara.javascript_driver = :selenium
+  def initialize(url, userID)
+    # Capybara.default_driver = :webkit
+    # Capybara.javascript_driver = :webkit
+    Capybara.default_driver = :selenium
+    Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
     end
     @job_links = []
     @url = url
+    @user = User.find(userID)
+    @counter = 0
   end
 
   def scrape(skillset, region)
@@ -28,10 +30,10 @@ class JobScraper
     visit @url
     sleep(1)
     perform_search
-    search
+    search_jobs
   end
 
-  def search
+  def search_jobs
     close_modal
     filter_jobs
 
@@ -46,10 +48,13 @@ class JobScraper
       score: matching_algorithm(job_reqs).round(2),
       applied: false,
       logo: Job.autocomplete(:company),
-      user_id: 1
+      user_id: @user.id
       )
     end
-    next_page
+    @counter += 1
+    if @counter < 10
+      next_page
+    end
   end
 
   def next_page
@@ -68,7 +73,7 @@ class JobScraper
         page.find('.popover-x-span').click
       end
       sleep(1)
-      search
+      search_jobs
     end
   end
 
@@ -97,7 +102,7 @@ class JobScraper
   def extract_requirements
     if page.has_selector?("#job-content #job_summary ul li")
       page.all("#job-content #job_summary ul li").map{|x| x.text}
-    else
+    elsif page.has_selector?("#job-content #job_summary")
       page.find("#job-content #job_summary").text.split('.')
     end
   end
@@ -131,4 +136,4 @@ class JobScraper
   end
 end
 
-JobScraper.new('http://www.indeed.com/').scrape(ARGV[0], ARGV[1])
+JobScraper.new('http://www.indeed.com/', ARGV[0]).scrape(ARGV[1], ARGV[2])

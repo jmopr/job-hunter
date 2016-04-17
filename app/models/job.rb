@@ -23,13 +23,12 @@ class Job < ActiveRecord::Base
   end
 
   # Searches for jobs.
-  def self.get_jobs(title, location)
-    %x(bin/rails r scraper.rb "#{title}" "#{location}")
+  def self.get_jobs(user, title, location)
+    %x(bin/rails r scraper.rb "#{user.id}" "#{title}" "#{location}")
   end
 
   # Apply for the matching jobs.
   def self.apply(user, jobs)
-    byebug
     jobs.each do |job|
       %x(bin/rails r applier.rb "#{user.id}" "#{job.id}")
     end
