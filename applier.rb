@@ -81,14 +81,7 @@ class JobApplier
     until page.has_selector?('input#apply')
       complete_additional_steps
     end
-    # Apply button is in the page.
-    check = page.find('.button_content', match: :first).click
-    job = Job.find(title: job_title)
-    if check == 'ok'
-      job.update(
-        applied: true
-      )
-    end
+    apply
   end
 
   def answer_radio_questions
@@ -133,6 +126,17 @@ class JobApplier
       'great'
     else
       'good'
+    end
+  end
+
+  def apply
+    # Apply button is in the page.
+    check = page.find('#apply', match: :first).click
+    job = Job.find(title: job_title)
+    if check == 'ok'
+      job.update(
+        applied: true
+      )
     end
   end
 end
