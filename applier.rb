@@ -40,14 +40,18 @@ class JobApplier
     phone_number = @user.phone_number
     link_to_github = "https://github.com/jmopr/job-hunter/blob/master/matcher.rb"
     percent = @job.score.round(2)
-    url_for_analysis = @job.url
+    url_for_analysis = "http://localhost:3000/users/jobs/#{@job.id}"
     fit = category @job.score
     cover_letter_body = %Q(
     Hey!
-    Thanks for taking the time to review my application. I actually wrote a script to automatically apply to your job because it looks like it's a #{fit} fit for my skills - my matching algorithm actually said there is #{percent}% chance you'd be interested in interviewing me. You can check out the match profile I created for your job posting here: #{url_for_analysis}
+    Thanks for taking the time to review my application. I actually wrote a script to automatically
+    apply to your job because it looks like it's a #{fit} fit for my skills - my matching algorithm
+    actually said there is #{percent}% chance you'd be interested in interviewing me. You can check
+    out the match profile I created for your job posting here: #{url_for_analysis}
     I'd really love the opportunity to interview at #{company_name} for the open #{job_title} position.
     Thanks again. You can reach me at #{phone_number} if you'd like to chat.
-    P.S. if you're interested in how my bot is actually handling applications for me, you can check out the source code that applied on github: #{link_to_github}.
+    P.S. if you're interested in how my bot is actually handling applications for me, you can check
+    out the source code that applied on github: #{link_to_github}.
     )
 
     # there is variation in the apply forms

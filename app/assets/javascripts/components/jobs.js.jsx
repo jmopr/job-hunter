@@ -1,4 +1,3 @@
-
 var JobsList = React.createClass({
   render: function() {
     var JobsNodes = this.props.data.map(function(job) {
@@ -8,6 +7,7 @@ var JobsList = React.createClass({
           <td>{job.description}</td>
           <td>{job.score}</td>
           <td>{job.company}</td>
+          <td>{job.post_date}</td>
         </tr>
       );
     });
@@ -31,6 +31,7 @@ var JobsTable = React.createClass({
           <th>Description</th>
           <th>Score</th>
           <th>Company</th>
+          <th>Post Date</th>
         </tr>
       </thead>
         <JobsList data = {this.props.data}/>

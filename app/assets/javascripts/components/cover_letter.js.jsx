@@ -2,7 +2,7 @@
 var contact_method = function(){
   var d = new Date();
 if(8 < d.getHours() && d.getHours()< 20){
-  return "You can call me at 305-453-2345 right now."
+  return "You can call me at 787-718-5395 right now."
 }else{
   return "You can e-mail me by clicking the \"Let's talk!\" button below."
 }}
@@ -29,7 +29,7 @@ var NavBar = React.createClass({
           <ul className="nav nav-pills pull-right">
             <li role="presentation"><a href="#" target="_blank">About</a></li>
             <li role="presentation"><a href="https://github.com/jmopr/job-hunter" target="_blank">Source Code</a></li>
-            <li role="presentation"><a href="mailto:jmopr83@gmail.com?subject=AwesomeWeShouldTalk">
+            <li role="presentation"><a href="mailto:jmopr83@gmail.com?subject=Awesome We Should Talk">
               Contact</a></li>
             </ul>
           </nav>
@@ -70,7 +70,7 @@ var CoverBox = React.createClass({
         <p>
           Hi!
         </p>
-        <p>I'm happy that you're reading this. I think it would be awesome to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>. We should really talk about the job you posted <a href="#">here</a>. {contact_method()}
+        <p>I'm happy that you're reading this. I think it would be awesome to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>. We should really talk about the job you posted <a href={this.props.job.url} target="_blank">here</a>. {contact_method()}
         </p>
         <p>
           Thanks again,<br></br>

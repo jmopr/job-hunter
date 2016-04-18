@@ -22,6 +22,7 @@ class JobsController < ApplicationController
   end
 
   def show
+    @user = current_user
     @job= Job.find(params[:id])
     @jobs = Job.applied
     #   render json: Job.find(params[:id]), status: :ok
