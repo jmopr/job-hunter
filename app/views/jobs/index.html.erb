@@ -7,6 +7,8 @@
   <%= text_field_tag(:title, nil, placeholder: 'Job Title') %>
   <%= label_tag(:location, "Enter city, state or zip code") %>
   <%= text_field_tag(:location, nil, placeholder: 'City') %>
+  <%= label_tag(:pages, "Pages to inspect") %>
+  <%= text_field_tag(:pages, nil, placeholder: 'Number of Pages') %>
   <%= submit_tag("Find Jobs") %>
 <% end %>
 

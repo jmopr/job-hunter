@@ -22,8 +22,8 @@ class Job < ActiveRecord::Base
   end
 
   # Searches for jobs.
-  def self.get_jobs(user, title, location)
-    %x(bin/rails r scraper.rb "#{user.id}" "#{title}" "#{location}")
+  def self.get_jobs(user, title, location, pages)
+    %x(bin/rails r scraper.rb "#{user.id}" "#{title}" "#{location}" "#{pages}")
   end
 
   # Apply for the matching jobs.

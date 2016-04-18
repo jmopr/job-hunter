@@ -7,7 +7,7 @@ class JobsController < ApplicationController
 
   def search
     @user = current_user
-    @jobs = Job.get_jobs(@user, params[:title], params[:location])
+    @jobs = Job.get_jobs(@user, params[:title], params[:location], params[:pages])
     redirect_to users_jobs_path
   end
 

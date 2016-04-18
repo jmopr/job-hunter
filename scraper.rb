@@ -8,11 +8,9 @@ require './matcher'
 class JobScraper
   include Capybara::DSL
 
-  def initialize(url, userID)
+  def initialize(url, userID, pages)
     Capybara.default_driver = :webkit
     Capybara.javascript_driver = :webkit
-    # Capybara.default_driver = :selenium
-    # Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
@@ -21,6 +19,7 @@ class JobScraper
     @url = url
     @user = User.find(userID)
     @counter = 1
+    @pages = pages
   end
 
   def scrape(skillset, region)
@@ -52,7 +51,7 @@ class JobScraper
       )
     end
     @counter += 1
-    if @counter <= 20
+    if @counter <= @pages
       next_page
     end
   end
@@ -137,4 +136,4 @@ class JobScraper
   end
 end
 
-JobScraper.new('http://www.indeed.com/', ARGV[0]).scrape(ARGV[1], ARGV[2])
+JobScraper.new('http://www.indeed.com/', ARGV[0], ARGV[3]).scrape(ARGV[1], ARGV[2])
