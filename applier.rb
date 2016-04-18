@@ -61,15 +61,16 @@ class JobApplier
     fill_in 'applicant.phoneNumber', with: @user.phone_number
     fill_in 'applicant.email', with: @user.email
     fill_in 'applicant.applicationMessage', with: cover_letter_body
-    sleep(20)
     attach_file('resume', File.absolute_path('./Resume.pdf'))
     page.find('a.button_content.form-page-next', match: :first).click
+    sleep(1)
   end
 
   def complete_additional_steps
     # only complete required fields (skip optional)
     all('label').each do |field|
       unless field.text.include? 'optional'
+        sleep(3)
         answer_radio_questions
         answer_text_questions
         click 'Continue'
@@ -80,7 +81,8 @@ class JobApplier
     until page.has_selector?('input#apply')
       complete_additional_steps
     end
-    check = page.find('.button_content', match: :first).click
+    check = "no"
+    # check = page.find('.button_content', match: :first).click
 
     if check == 'ok'
       @job.update(applied: true)
@@ -90,9 +92,8 @@ class JobApplier
 
   def answer_radio_questions
     # should only be running on required questions
-    # just answer yes all the time or fill in with info
     all("input[type='radio'][value='0']").each do |radio|
-      choose(radio['id'])
+      radio.click
     end
   end
 
@@ -113,7 +114,7 @@ class JobApplier
         # first .find(:xpath, "..") gives us div.input_border
         # second .find(:xpath, "..") gives us div.input-question
         question = field.find(:xpath, "..").find(:xpath, "..").find('label')
-
+        sleep(10)
         # see if any of the
         answers.keys.each do |question_we_can_answer|
           if question.include? question_we_can_answer
