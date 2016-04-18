@@ -1,11 +1,10 @@
-
 class Job < ActiveRecord::Base
   belongs_to :user
   validates :title, :company, :description, presence: true
-  validates :title, uniqueness: true, on: :create
+  validates :title, :company, uniqueness: true
 
   scope :match, -> { where('score > 50') }
-  scope :applied, -> { where(applied: true) }
+  scope :applied, -> { where('applied: true') }
 
   def self.logo_validator(url)
     res = Faraday.get("https://logo.clearbit.com/#{url}")
@@ -30,7 +29,9 @@ class Job < ActiveRecord::Base
   # Apply for the matching jobs.
   def self.apply(user, jobs)
     jobs.each do |job|
-      %x(bin/rails r applier.rb "#{user.id}" "#{job.id}")
+      unless job.applied
+        %x(bin/rails r applier.rb "#{user.id}" "#{job.id}")
+      end
     end
   end
 
@@ -43,6 +44,7 @@ class Job < ActiveRecord::Base
     end
     names_of_projects
   end
+
   def get_the_bytes(user_name)
     names = get_number_of_repos(user_name)
     ruby_bytes = []

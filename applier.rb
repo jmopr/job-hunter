@@ -8,10 +8,10 @@ class JobApplier
   include Capybara::DSL
 
   def initialize(userID, jobID)
-    # Capybara.default_driver = :webkit
-    # Capybara.javascript_driver = :webkit
-    Capybara.default_driver = :selenium
-    Capybara.javascript_driver = :selenium
+    Capybara.default_driver = :webkit
+    Capybara.javascript_driver = :webkit
+    # Capybara.default_driver = :selenium
+    # Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
@@ -62,7 +62,11 @@ class JobApplier
     fill_in 'applicant.email', with: @user.email
     fill_in 'applicant.applicationMessage', with: cover_letter_body
     attach_file('resume', File.absolute_path('./Resume.pdf'))
-    page.find('a.button_content.form-page-next', match: :first).click
+    if page.has_selector?('a.button_content.form-page-next')
+      page.find('a.button_content.form-page-next', match: :first).click
+    else
+      apply
+    end
     sleep(1)
   end
 
@@ -81,15 +85,18 @@ class JobApplier
     until page.has_selector?('input#apply')
       complete_additional_steps
     end
-    # apply
+    apply
   end
 
   def answer_radio_questions
-    all("input[type='radio'][value='0']").each do |radio|
-      radio.click
-    end
-    all("input[type='radio'][value='Yes']").each do |radio|
-      radio.click
+    if page.has_selector?("input[type='radio'][value='0']")
+      all("input[type='radio'][value='0']").each do |radio|
+        radio.click
+      end
+    else
+      all("input[type='radio'][value='Yes']").each do |radio|
+        radio.click
+      end
     end
   end
 
@@ -132,11 +139,8 @@ class JobApplier
   def apply
     # Apply button is in the page.
     check = page.find('#apply', match: :first).click
-    job = Job.find(title: job_title)
     if check == 'ok'
-      job.update(
-        applied: true
-      )
+      @job.update(applied: true)
     end
   end
 end
