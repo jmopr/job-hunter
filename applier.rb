@@ -81,7 +81,7 @@ class JobApplier
     until page.has_selector?('input#apply')
       complete_additional_steps
     end
-    apply
+    # apply
   end
 
   def answer_radio_questions

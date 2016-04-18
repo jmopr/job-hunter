@@ -50,7 +50,7 @@ class JobScraper
       )
     end
     @counter += 1
-    if @counter <= 10
+    if @counter <= 20
       next_page
     end
   end
