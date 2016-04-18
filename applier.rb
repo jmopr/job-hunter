@@ -70,29 +70,32 @@ class JobApplier
     # only complete required fields (skip optional)
     all('label').each do |field|
       unless field.text.include? 'optional'
-        sleep(3)
         answer_radio_questions
         answer_text_questions
-        click 'Continue'
+        if page.has_selector?('a.button_content.form-page-next')
+          page.find('a.button_content.form-page-next', match: :first).click
+        end
         sleep(1)
       end
     end
-
     until page.has_selector?('input#apply')
       complete_additional_steps
     end
-    check = "no"
-    # check = page.find('.button_content', match: :first).click
-
+    # Apply button is in the page.
+    check = page.find('.button_content', match: :first).click
+    job = Job.find(title: job_title)
     if check == 'ok'
-      @job.update(applied: true)
+      job.update(
+        applied: true
+      )
     end
-    sleep(2)
   end
 
   def answer_radio_questions
-    # should only be running on required questions
     all("input[type='radio'][value='0']").each do |radio|
+      radio.click
+    end
+    all("input[type='radio'][value='Yes']").each do |radio|
       radio.click
     end
   end
@@ -101,24 +104,22 @@ class JobApplier
     # should only be running on required questions
     answers = {
       'projects' => "I actually built a data explorer based on salary data for miami dade county: http://codeformiami.herokuapp.com/",
-      'Website' => "data explorer for salary data for miami dade county: http://codeformiami.herokuapp.com/",
-      'LinkedIn' => "https://pr.linkedin.com/in/jmopr",
+      'Website' => "Data explorer for salary data for miami dade county: http://codeformiami.herokuapp.com/",
+      'LinkedIn' => @user.linkedin,
       'Reference' => [
         "Auston Bunsen auston@wyncode.co 954-345-4563",
         "Rodney Perez rodney@gmail.com 305-345-4563"
-      ]
+      ],
+      'salary expectations' => '$50,000'
     }
 
     within('.question-page') do
       all('textarea, input[type="text"]').each do |field|
-        # first .find(:xpath, "..") gives us div.input_border
-        # second .find(:xpath, "..") gives us div.input-question
         question = field.find(:xpath, "..").find(:xpath, "..").find('label')
-        sleep(10)
-        # see if any of the
+        # see if any of the question is 'answerable' with answers.
         answers.keys.each do |question_we_can_answer|
-          if question.include? question_we_can_answer
-            fill_in question, with: answers[question_we_can_answer]
+          if question.text.include? question_we_can_answer
+            fill_in field['name'], with: answers[question_we_can_answer]
           end
         end
       end

@@ -14,5 +14,9 @@
   <input value="Match Jobs" type="submit" />
 </form>
 
+<form method="get" action="apply" class="button_to">
+  <input value="Apply to Jobs" type="submit" />
+</form>
+
 <%= button_to "Delete", {:controller => :jobs,
       :action => 'destroy', :id => current_user.id }, :method => :delete %>
