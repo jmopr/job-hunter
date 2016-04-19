@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  validates :first_name, :last_name, :email, :phone_number, presence: true
+  validates :first_name, :last_name, :email, :phone_number, :document, presence: true
   validates :first_name, :last_name, length: { in: 2..20 }
   validates :first_name, :last_name, format: { with: /\A[a-zA-Z]+\z/,
     message: "only allows letters" }
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
     end
     names_of_projects
   end
-  
+
   def get_the_bytes(user_name)
     names = get_number_of_repos(user_name)
     ruby_bytes = []
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     [lines.reduce(:+), names.length]
   end
 
-  def self.delete_doc
+  def self.delete_document
     self.document = nil
     self.save
   end

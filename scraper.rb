@@ -37,18 +37,17 @@ class JobScraper
     filter_jobs
 
     gather_requirements do |job_reqs|
-      Job.create(
-      title: page.first(".jobtitle").text,
-      description: job_reqs.join(" "),
-      company: page.first(".company").text,
-      location: page.first(".location").text,
-      post_date: page.first(".date").text,
-      url: page.current_url,
-      score: matching_algorithm(job_reqs).round(2),
-      applied: false,
-      logo: Job.autocomplete(:company),
-      user_id: @user.id
-      )
+      Job.create(title: page.first(".jobtitle").text,
+                description: job_reqs.join(" "),
+                company: page.first(".company").text,
+                location: page.first(".location").text,
+                post_date: page.first(".date").text,
+                url: page.current_url,
+                score: matching_algorithm(job_reqs).round(2),
+                applied: false,
+                logo: Job.autocomplete(:company),
+                user_id: @user.id
+                )
     end
     @counter += 1
     if @counter <= @pages
