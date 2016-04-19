@@ -9,7 +9,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
+<<<<<<< HEAD
     @user.number_of_lines, @user.number_of_projects = @user.get_the_bytes(user_params[:github])
+=======
+    @user.document = params[:user][:document]
+>>>>>>> 692a819fb768c2aa787696c556d9ea09c7af6e4c
     if @user.save
       redirect_to users_jobs_path, notice: "Created user"
     else
@@ -17,6 +21,7 @@ class UsersController < ApplicationController
       render action: 'new'
     end
   end
+
   private
     def user_params
       params.require(:user).permit(:username, :password, :password_confirmation, :first_name,

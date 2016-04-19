@@ -12,6 +12,7 @@ class JobsController < ApplicationController
   end
 
   def match
+    @user = current_user
     @jobs = Job.match
   end
 
@@ -31,6 +32,7 @@ class JobsController < ApplicationController
   end
 
   def index
+    @user = current_user
     @jobs = Job.all
     # render json: Job.list(job_params), status: :ok
   end
@@ -47,7 +49,8 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    Job.destroy_all
+    Job.delete_all
+    Job.reset_pk_sequence
     redirect_to users_jobs_path
   #   render json: Job.all
   # rescue
