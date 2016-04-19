@@ -63,7 +63,7 @@ class JobApplier
     fill_in 'applicant.phoneNumber', with: @user.phone_number
     fill_in 'applicant.email', with: @user.email
     fill_in 'applicant.applicationMessage', with: cover_letter_body
-    attach_file('resume', File.absolute_path('./Resume.pdf'))
+    attach_file('resume', File.absolute_path("./public#{@user.document.url}"))
     if page.has_selector?('a.button_content.form-page-next')
       page.find('a.button_content.form-page-next', match: :first).click
     else

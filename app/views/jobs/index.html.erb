@@ -12,6 +12,10 @@
   <%= submit_tag("Find Jobs") %>
 <% end %>
 
+<p>
+  <%= link_to 'Resume', @user.document.url %>
+</p>
+
 <form method="get" action="match" class="button_to">
   <input value="Match Jobs" type="submit" />
 </form>
@@ -21,4 +25,4 @@
 </form>
 
 <%= button_to "Delete", {:controller => :jobs,
-      :action => 'destroy', :id => current_user.id }, :method => :delete %>
+      :action => 'destroy', :id => @user.id }, :method => :delete %>

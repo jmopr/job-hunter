@@ -5,6 +5,7 @@ gem 'selenium-webdriver'
 gem 'capybara-webkit'
 gem 'timeout'
 gem 'capybara'
+gem 'activerecord-reset-pk-sequence'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
