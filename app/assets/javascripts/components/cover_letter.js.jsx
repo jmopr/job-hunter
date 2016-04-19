@@ -12,12 +12,11 @@ var CoverPage = React.createClass({
 var contact_method = function(){
   var d = new Date();
   if(8 < d.getHours() && d.getHours()< 20){
-    return You can call me at 787-718-5395 right now."
+    return "You can call me at 787-718-5395 right now."
   }else{
     return "You can e-mail me by clicking the \"Let's talk!\" button below."
   }
 }
-href={"mailto:" + this.props.user.email + "?subject=Your application to Spotify"}
 
 var NavBar = React.createClass({
   render: function() {
