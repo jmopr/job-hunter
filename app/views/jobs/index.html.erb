@@ -12,6 +12,8 @@
   <%= submit_tag("Find Jobs") %>
 <% end %>
 
+<%= "Total jobs found: #{@jobs.count}" %>
+
 <p>
   <%= link_to 'Resume', @user.document.url %>
 </p>
