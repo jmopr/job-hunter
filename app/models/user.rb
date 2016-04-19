@@ -5,16 +5,11 @@ class User < ActiveRecord::Base
   has_secure_password
   has_attached_file :document
   validates_attachment :document, content_type: { content_type: %w(application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document) }
-
-  def document_attached?
-    self.document.file?
-  end
-
+  
   def self.delete_doc
     self.document = nil
     self.save
   end
-
   # @user.avatar = nil
   # @user.save
 end

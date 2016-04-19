@@ -61,8 +61,9 @@ class JobApplier
     fill_in 'applicant.phoneNumber', with: @user.phone_number
     fill_in 'applicant.email', with: @user.email
     fill_in 'applicant.applicationMessage', with: cover_letter_body
-    sleep(20)
-    attach_file('resume', File.absolute_path('./Resume.pdf'))
+    # attach_file('resume', File.absolute_path('./public/system/users/documents/000/000/001/original/Resume.pdf'))
+    attach_file('resume', File.absolute_path("./public#{@user.document.url}"))
+    sleep(5)
     page.find('a.button_content.form-page-next', match: :first).click
   end
 
