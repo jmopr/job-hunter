@@ -7,6 +7,33 @@ body {
   font-size: 4em;
   margin-bottom: 1em;
 }
+#progressbar {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  width: 10em;
+  height: 5em;
+}
+.loc{
+  margin: 1em;
+  color:#cccccc;
+  font-size: 1.5em;
+}
+.match{
+  color:#cccccc;
+  font-size: 1.5em;
+}
+.cavs{
+  color:#cccccc;
+  font-size: .75em;
+}
+#number-lines{
+  color:blue;
+  font-size: 3em;
+}
+#number-projects{
+  color:blue;
+  font-size: 3em;
+}
 
 #profile-pic{
   background: url('http://i1064.photobucket.com/albums/u379/rodney_perez1/Juan_zpsqp83ggm6.jpg') no-repeat;
