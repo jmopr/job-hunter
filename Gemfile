@@ -5,6 +5,7 @@ gem 'selenium-webdriver'
 gem 'capybara-webkit'
 gem 'timeout'
 gem 'capybara'
+gem 'activerecord-reset-pk-sequence'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
@@ -33,9 +34,13 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'react-rails'
 
+gem "paperclip"
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'faraday', '~> 0.9.2'
+gem 'httparty', '~> 0.13.7'
+gem 'delayed_job_active_record'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

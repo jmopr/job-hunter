@@ -1,10 +1,10 @@
 class Job < ActiveRecord::Base
   belongs_to :user
   validates :title, :company, :description, presence: true
-  validates :title, uniqueness: true, on: :create
+  validates :title, :company, uniqueness: true
 
   scope :match, -> { where('score > 50') }
-  scope :applied, -> { where(applied: true) }
+  scope :applied, -> { where('applied: true') }
 
   def self.logo_validator(url)
     res = Faraday.get("https://logo.clearbit.com/#{url}")
@@ -22,15 +22,42 @@ class Job < ActiveRecord::Base
   end
 
   # Searches for jobs.
-  def self.get_jobs(title, location)
-    %x(bin/rails r scraper.rb "#{title}" "#{location}")
+  def self.get_jobs(user, title, location, pages)
+    %x(bin/rails r scraper.rb "#{user.id}" "#{title}" "#{location}" "#{pages}")
   end
 
   # Apply for the matching jobs.
   def self.apply(user, jobs)
-    byebug
     jobs.each do |job|
-      %x(bin/rails r applier.rb "#{user.id}" "#{job.id}")
+      unless job.applied
+        %x(bin/rails r applier.rb "#{user.id}" "#{job.id}")
+      end
     end
+  end
+
+  def get_number_of_repos(user_name)
+    response = HTTParty.get("https://api.github.com/users/#{user_name}/repos")
+    number = response.length
+    names_of_projects =[]
+    (0..number-1).each do |i|
+      names_of_projects << response[i]["name"]
+    end
+    names_of_projects
+  end
+
+  def get_the_bytes(user_name)
+    names = get_number_of_repos(user_name)
+    ruby_bytes = []
+    lines = []
+    names.each do |name|
+      response = HTTParty.get("https://api.github.com/repos/#{user_name}/#{name}/languages")
+      ruby_bytes << response["Ruby"]
+    end
+    ruby_bytes.each do |project|
+      unless project == nil
+        lines << project/40
+      end
+    end
+    lines.reduce(:+)
   end
 end

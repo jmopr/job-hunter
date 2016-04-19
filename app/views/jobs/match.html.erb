@@ -20,6 +20,11 @@
   </tr>
   <% end %>
 </table>
+
+<p>
+  <%= link_to 'Resume', @user.document.url %>
+</p>
+
 <form method="get" action="apply" class="button_to">
   <input value="Apply to Jobs" type="submit" />
 </form>
