@@ -9,8 +9,8 @@
   color: '#FFEA82',
   trailColor: '#eee',
   trailWidth: 5,
-  easing: 'easeInOut',
-  duration: 2220,
+  easing: 'easeIn',
+  duration: 4000,
   svgStyle: null,
   text: {
     value: '',
@@ -34,9 +34,9 @@
 bar.text.style.fontFamily = '"Ubuntu", Helvetica, sans-serif';
 bar.text.style.fontSize = '2.5em';
 
-bar.animate(1);
-var numAnim = new CountUp("number-lines", 0, 10000, 0, 2.5)
+bar.animate("<%=@job.score/100%>");
+var numAnim = new CountUp("number-lines", 0, "<%=@user.number_of_lines%>", 0, 4)
 numAnim.start();
-var numAnimtoo = new CountUp("number-projects", 0, 25, 0, 2.5)
+var numAnimtoo = new CountUp("number-projects", 0, "<%=@user.number_of_projects%>", 0, 4)
 numAnimtoo.start();}
 </script>
