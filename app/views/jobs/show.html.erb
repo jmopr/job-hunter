@@ -2,9 +2,41 @@
   <%= react_component( 'CoverPage', job: @job, user: @user) %>
 </div>
 
+
 <script>
- window.onload = function(){var numAnim = new CountUp("number-lines", 0, 10000, 0, 2.5)
- numAnim.start();
- var numAnimtoo = new CountUp("number-projects", 0, 25, 0, 2.5)
- numAnimtoo.start();};
+ window.onload= function(){var bar = new ProgressBar.SemiCircle(progressbar, {
+  strokeWidth: 6,
+  color: '#FFEA82',
+  trailColor: '#eee',
+  trailWidth: 5,
+  easing: 'easeInOut',
+  duration: 2220,
+  svgStyle: null,
+  text: {
+    value: '',
+    alignToBottom: true
+  },
+  from: {color: '#ffff00 '},
+  to: {color: '#00ff00'},
+  // Set default step function for all animate calls
+  step: (state, bar) => {
+    bar.path.setAttribute('stroke', state.color);
+    var value = Math.round(bar.value() * 100);
+    if (value === 0) {
+      bar.setText('');
+    } else {
+      bar.setText(value);
+    }
+
+    bar.text.style.color = state.color;
+  }
+});
+bar.text.style.fontFamily = '"Ubuntu", Helvetica, sans-serif';
+bar.text.style.fontSize = '2.5em';
+
+bar.animate(1);
+var numAnim = new CountUp("number-lines", 0, 10000, 0, 2.5)
+numAnim.start();
+var numAnimtoo = new CountUp("number-projects", 0, 25, 0, 2.5)
+numAnimtoo.start();}
 </script>

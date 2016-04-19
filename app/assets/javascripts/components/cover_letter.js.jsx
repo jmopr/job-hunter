@@ -12,7 +12,7 @@ if(8 < d.getHours() && d.getHours()< 20){
 var CoverPage = React.createClass({
   render: function() {
     return (
-      <div className="container">
+      <div className="container jobs-container">
         <NavBar/>
         <CoverBox job = {this.props.job} number={this.props.number}/>
       </div>
@@ -47,26 +47,29 @@ var CoverBox = React.createClass({
         <div id="profile-pic">
           <h1 id="hello">Hello, {this.props.job.company}!</h1>
         </div>
-
         <div className="center-internal">
           <img src={this.props.job.logo} alt="Logo"/>
         </div>
-        <div className="grid-of-stats">
-          <div className="match block">
-            {this.props.job.score}% <br/>
-            <span>Match</span>
-          </div>
-          <div className="loc block" >
+        <div className="row grid-of-stats text-center">
+          <div className="col-md-5 loc">
             <div id="number-lines"></div>
             <span>Lines of Ruby written</span>
+            <div className="cavs">(approximately)</div>
           </div>
-
-          <div className="loc block">
+          <div className="col-md-5 loc">
             <div id="number-projects"></div>
           <span>Github Projects</span>
           </div>
-        </div>
-        <div className="clearfix"></div>
+          </div>
+          <div className = "row">
+          <div className="col-md-6 col-md-offset-3 match text-center">
+            <div id="progressbar"></div>
+            <div>Percentage Match</div>
+              <div className="cavs">based on Algorithm</div>
+          </div>
+          </div>
+
+      <div className="clearfix"></div>
         <p>
           Hi!
         </p>
