@@ -47,7 +47,7 @@ class JobScraper
                 url: page.current_url,
                 score: matching_algorithm(job_reqs).round(2),
                 applied: false,
-                logo: Job.autocomplete(:company),
+                logo: Job.autocomplete(page.first(".company").text),
                 user_id: @user.id
                 )
     end
