@@ -2,9 +2,56 @@
   <%= react_component( 'CoverPage', job: @job, user: @user) %>
 </div>
 
+
 <script>
- window.onload = function(){var numAnim = new CountUp("number-lines", 0, 10000, 0, 2.5)
- numAnim.start();
- var numAnimtoo = new CountUp("number-projects", 0, 25, 0, 2.5)
- numAnimtoo.start();};
+window.onload = function() {
+  var happened = 0
+	var oTop = $('#body-paragraph').offset().top - window.innerHeight;
+    $(window).scroll(function(){
+ 		var pTop = $('body').scrollTop()
+ 		if( pTop > oTop && (happened < 1)){
+     		start_count();
+        happened ++
+ 		}
+	});
+};
+function start_count(){
+  var bar = new ProgressBar.SemiCircle(progressbar, {
+ strokeWidth: 6,
+ color: '#FFEA82',
+ trailColor: '#eee',
+ trailWidth: 5,
+ easing: 'easeIn',
+ duration: 4000,
+ svgStyle: null,
+ text: {
+   value: '',
+   alignToBottom: true
+ },
+ from: {color: '#ffff00 '},
+ to: {color: '#00ff00'},
+ // Set default step function for all animate calls
+ step: (state, bar) => {
+   bar.path.setAttribute('stroke', state.color);
+   var value = Math.round(bar.value() * 100);
+   if (value === 0) {
+     bar.setText('');
+   } else {
+     bar.setText(value);
+   }
+
+   bar.text.style.color = state.color;
+ }
+});
+
+bar.text.style.fontFamily = '"Ubuntu", Helvetica, sans-serif';
+bar.text.style.fontSize = '2.5em';
+
+bar.animate("<%=@job.score/100%>");
+var numAnim = new CountUp("number-lines", 0, "<%=@user.number_of_lines%>", 0, 4)
+numAnim.start();
+var numAnimtoo = new CountUp("number-projects", 0, "<%=@user.number_of_projects%>", 0, 4)
+numAnimtoo.start();}
+
+
 </script>
