@@ -10,7 +10,6 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
 ActiveRecord::Schema.define(version: 20160417183240) do
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -39,9 +38,9 @@ ActiveRecord::Schema.define(version: 20160417183240) do
     t.string   "company"
     t.string   "url"
     t.float    "score"
+    t.string   "logo"
     t.string   "location"
     t.integer  "user_id"
-    t.string   "logo"
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id"
@@ -49,14 +48,16 @@ ActiveRecord::Schema.define(version: 20160417183240) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "email"
     t.string   "phone_number"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "github"
     t.string   "linkedin"
+    t.integer  "number_of_lines"
+    t.integer  "number_of_projects"
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"

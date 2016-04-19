@@ -39,7 +39,6 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(params)
-    @job.logo = @job.autocomplete("carecloud")
     @job.save
     # if job.save
     #
