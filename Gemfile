@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'timeout'
-gem 'capybara'
+# gem 'capybara'
 gem 'activerecord-reset-pk-sequence'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -43,9 +43,9 @@ end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'capybara-webkit'
-  gem 'selenium'
-  gem 'selenium-webdriver'
+  # gem 'capybara-webkit'
+  # gem 'selenium'
+  # gem 'selenium-webdriver'
   gem 'byebug'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'

@@ -1,24 +1,23 @@
-
-var contact_method = function(){
-  var d = new Date();
-if(8 < d.getHours() && d.getHours()< 20){
-  return "You can call me at 787-718-5395 right now."
-}else{
-  return "You can e-mail me by clicking the \"Let's talk!\" button below."
-}}
-
-
-
 var CoverPage = React.createClass({
   render: function() {
     return (
       <div className="container">
         <NavBar/>
-        <CoverBox job = {this.props.job} number={this.props.number}/>
+        <CoverBox job = {this.props.job} number = {this.props.number} user = {this.props.user} />
       </div>
     );
   }
 })
+
+var contact_method = function(){
+  var d = new Date();
+  if(8 < d.getHours() && d.getHours()< 20){
+    return <span>{"You can call me at " + this.props.user.phone_number + right now."</span>
+  }else{
+    return "You can e-mail me by clicking the \"Let's talk!\" button below."
+  }
+}
+href={"mailto:" + this.props.user.email + "?subject=Your application to Spotify"}
 
 var NavBar = React.createClass({
   render: function() {
@@ -40,6 +39,7 @@ var NavBar = React.createClass({
     );
   }
 })
+
 var CoverBox = React.createClass({
   render: function(){
     return(
@@ -70,17 +70,19 @@ var CoverBox = React.createClass({
         <p>
           Hi!
         </p>
-        <p>I'm happy that you're reading this. I think it would be awesome to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>. We should really talk about the job you posted <a href={this.props.job.url} target="_blank">here</a>. {contact_method()}
+        <p>I'm happy that you're reading this. I think it would be awesome to work at
+          <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>.
+          We should really talk about the job you posted <a href={this.props.job.url} target="_blank">
+          here</a>. {contact_method()}
         </p>
         <p>
           Thanks again,<br></br>
-          Juan
+          {this.props.user.first_name} {this.props.user.last_name}
         </p>
       <p>
-        <a className="btn btn-lg btn-success btn-block" href="mailto:jmopr83@gmail.com?subject=Re:+Your+application+to+Spotify" role="button">Let's talk!</a>
+        <a className="btn btn-lg btn-success btn-block" href={"mailto:" + this.props.user.email + "?subject=Your application to Spotify"} role="button">Let's talk!</a>
       </p>
       </div>
-
     );
   }
 })
