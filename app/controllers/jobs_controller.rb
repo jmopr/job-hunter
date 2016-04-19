@@ -50,7 +50,8 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    Job.destroy_all
+    Job.delete_all
+    Job.reset_pk_sequence
     redirect_to users_jobs_path
   #   render json: Job.all
   # rescue
