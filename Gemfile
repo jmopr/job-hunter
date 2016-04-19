@@ -42,7 +42,6 @@ group :test, :production do
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'capybara-webkit'
   gem 'selenium'
   gem 'selenium-webdriver'

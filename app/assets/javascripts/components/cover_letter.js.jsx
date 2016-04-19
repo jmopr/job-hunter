@@ -9,10 +9,10 @@ var CoverPage = React.createClass({
   }
 })
 
-var contact_method = function(){
+var contact_method = function(number){
   var d = new Date();
   if(8 < d.getHours() && d.getHours()< 20){
-    return "You can call me at 787-718-5395 right now."
+    return "You can call me at " + number + " right now."
   }else{
     return "You can e-mail me by clicking the \"Let's talk!\" button below."
   }
@@ -22,18 +22,18 @@ var NavBar = React.createClass({
   render: function() {
     return (
       <div>
-      <div className="header clearfix">
-        <nav>
-          <ul className="nav nav-pills pull-right">
-            <li role="presentation"><a href="#" target="_blank">About</a></li>
-            <li role="presentation"><a href="https://github.com/jmopr/job-hunter" target="_blank">Source Code</a></li>
-            <li role="presentation"><a href="mailto:jmopr83@gmail.com?subject=Awesome We Should Talk">
-              Contact</a></li>
+        <div className="header clearfix">
+          <nav>
+            <ul className="nav nav-pills pull-right">
+              <li role="presentation"><a href="#" target="_blank">About</a></li>
+              <li role="presentation"><a href="https://github.com/jmopr/job-hunter" target="_blank">Source Code</a></li>
+              <li role="presentation"><a href="mailto:jmopr83@gmail.com?subject=Awesome We Should Talk">
+                Contact</a></li>
             </ul>
           </nav>
           <h3 className="text-muted">The Job-Hunter</h3>
-      </div>
-      <hr></hr>
+        </div>
+        <hr></hr>
       </div>
     );
   }
@@ -53,35 +53,35 @@ var CoverBox = React.createClass({
         <div className="grid-of-stats">
           <div className="match block">
             {this.props.job.score}% <br/>
-            <span>Match</span>
-          </div>
-          <div className="loc block" >
-            <div id="number-lines"></div>
-            <span>Lines of Ruby written</span>
-          </div>
-
-          <div className="loc block">
-            <div id="number-projects"></div>
-          <span>Github Projects</span>
-          </div>
+          <span>Match</span>
         </div>
-        <div className="clearfix"></div>
-        <p>
-          Hi!
-        </p>
-        <p>I'm happy that you're reading this. I think it would be awesome to work at
-          <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>.
+        <div className="loc block" >
+          <div id="number-lines"></div>
+          <span>Lines of Ruby written</span>
+        </div>
+
+        <div className="loc block">
+          <div id="number-projects"></div>
+          <span>Github Projects</span>
+        </div>
+      </div>
+      <div className="clearfix"></div>
+      <p>
+        Hi!
+      </p>
+      <p>I'm happy that you're reading this. I think it would be awesome to work at
+        <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>.
           We should really talk about the job you posted <a href={this.props.job.url} target="_blank">
-          here</a>. {contact_method()}
+          here</a>. {contact_method(this.props.user.phone_number)}
         </p>
         <p>
           Thanks again,<br></br>
-          {this.props.user.first_name} {this.props.user.last_name}
-        </p>
+        {this.props.user.first_name} {this.props.user.last_name}
+      </p>
       <p>
         <a className="btn btn-lg btn-success btn-block" href={"mailto:" + this.props.user.email + "?subject=Your application to Spotify"} role="button">Let's talk!</a>
       </p>
-      </div>
-    );
-  }
+    </div>
+  );
+}
 })
