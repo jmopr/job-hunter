@@ -12,7 +12,7 @@ var CoverPage = React.createClass({
 var contact_method = function(){
   var d = new Date();
   if(8 < d.getHours() && d.getHours()< 20){
-    return <span>{"You can call me at " + this.props.user.phone_number + right now."</span>
+    return You can call me at 787-718-5395 right now."
   }else{
     return "You can e-mail me by clicking the \"Let's talk!\" button below."
   }
