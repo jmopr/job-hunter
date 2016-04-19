@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'selenium'
-gem 'selenium-webdriver'
 gem 'capybara-webkit'
 gem 'timeout'
 gem 'capybara'
@@ -9,8 +7,6 @@ gem 'activerecord-reset-pk-sequence'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -31,9 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
 gem 'react-rails'
-
 gem "paperclip"
 
 # Use Unicorn as the app server
@@ -44,9 +38,17 @@ gem 'delayed_job_active_record'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :test, :production do
+  gem 'pg'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'selenium'
+  gem 'selenium-webdriver'
   gem 'byebug'
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 
 group :development do
