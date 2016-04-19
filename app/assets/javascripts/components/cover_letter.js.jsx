@@ -1,45 +1,44 @@
-
-var contact_method = function(){
-  var d = new Date();
-if(8 < d.getHours() && d.getHours()< 20){
-  return "You can call me at 787-718-5395 right now."
-}else{
-  return "You can e-mail me by clicking the \"Let's talk!\" button below."
-}}
-
-
-
 var CoverPage = React.createClass({
   render: function() {
     return (
       <div className="container jobs-container">
         <NavBar/>
-        <CoverBox job = {this.props.job} number={this.props.number}/>
+        <CoverBox job = {this.props.job} number = {this.props.number} user = {this.props.user} />
       </div>
     );
   }
 })
 
+var contact_method = function(number){
+  var d = new Date();
+  if(8 < d.getHours() && d.getHours()< 20){
+    return "You can call me at " + number + " right now."
+  }else{
+    return "You can e-mail me by clicking the \"Let's talk!\" button below."
+  }
+}
+
 var NavBar = React.createClass({
   render: function() {
     return (
       <div>
-      <div className="header clearfix">
-        <nav>
-          <ul className="nav nav-pills pull-right">
-            <li role="presentation"><a href="#" target="_blank">About</a></li>
-            <li role="presentation"><a href="https://github.com/jmopr/job-hunter" target="_blank">Source Code</a></li>
-            <li role="presentation"><a href="mailto:jmopr83@gmail.com?subject=Awesome We Should Talk">
-              Contact</a></li>
+        <div className="header clearfix">
+          <nav>
+            <ul className="nav nav-pills pull-right">
+              <li role="presentation"><a href="#" target="_blank">About</a></li>
+              <li role="presentation"><a href="https://github.com/jmopr/job-hunter" target="_blank">Source Code</a></li>
+              <li role="presentation"><a href="mailto:jmopr83@gmail.com?subject=Awesome We Should Talk">
+                Contact</a></li>
             </ul>
           </nav>
           <h3 className="text-muted">The Job-Hunter</h3>
-      </div>
-      <hr></hr>
+        </div>
+        <hr></hr>
       </div>
     );
   }
 })
+
 var CoverBox = React.createClass({
   render: function(){
     return(
@@ -73,17 +72,24 @@ var CoverBox = React.createClass({
         <p>
           Hi!
         </p>
-        <p id="body-paragraph">I'm happy that you're reading this. I think it would be awesome to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>. We should really talk about the job you posted <a href={this.props.job.url} target="_blank">here</a>. {contact_method()}
-        </p>
+        <p id="body-paragraph">I'm happy that you're reading this. I think it would be awesome
+          to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}
+        </strong>. We should really talk about the job you posted <a href={this.props.job.url}
+        target="_blank">here</a>. {contact_method(this.props.user.phone_number)}
+        <div className="grid-of-stats">
+          <div className="match block">
+            {this.props.job.score}% <br/>
+          <span>Match</span>
+        </div>
+      </div>
         <p>
           Thanks again,<br></br>
-          Juan
-        </p>
-      <p>
-        <a className="btn btn-lg btn-success btn-block" href="mailto:jmopr83@gmail.com?subject=Re:+Your+application+to+Spotify" role="button">Let's talk!</a>
+        {this.props.user.first_name} {this.props.user.last_name}
       </p>
-      </div>
-
-    );
-  }
+      <p>
+        <a className="btn btn-lg btn-success btn-block" href={"mailto:" + this.props.user.email + "?subject=Your application to Spotify"} role="button">Let's talk!</a>
+      </p>
+    </div>
+  );
+}
 })

@@ -1,5 +1,5 @@
 def matching_algorithm(parsed_requirements)
-  detractors = ["advanced", "expert", "senior", "years", "leadership"]
+  detractors = ["advanced", "expert", "senior", "years"]
   my_skills = {
     "Ruby" => 0.87, # based on 13/15 here: https://gist.github.com/ryansobol/5252653
     "Rails" => 0.7, # find a test for rails

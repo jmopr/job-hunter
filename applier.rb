@@ -10,6 +10,8 @@ class JobApplier
   def initialize(userID, jobID)
     Capybara.default_driver = :webkit
     Capybara.javascript_driver = :webkit
+    # Capybara.default_driver = :selenium
+    # Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls

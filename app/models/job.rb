@@ -17,8 +17,8 @@ class Job < ActiveRecord::Base
 
   def self.autocomplete(name)
     res = Faraday.get("https://autocomplete.clearbit.com/v1/companies/suggest?query=:#{name}")
-      url = JSON.parse(res.body)[0]["domain"]
-      Job.logo_validator(url)
+    url = JSON.parse(res.body)[0]["domain"]
+    Job.logo_validator(url)
     rescue
       "https://placeholdit.imgix.net/~text?txtsize=22&txt=I+was+unable+to+find+your+logo+sorry&w=140&h=140&txttrack=0"
   end
@@ -36,5 +36,8 @@ class Job < ActiveRecord::Base
       end
     end
   end
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 end

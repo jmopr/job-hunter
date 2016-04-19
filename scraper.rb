@@ -11,6 +11,8 @@ class JobScraper
   def initialize(url, userID, pages)
     Capybara.default_driver = :webkit
     Capybara.javascript_driver = :webkit
+    # Capybara.default_driver = :selenium
+    # Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
@@ -19,7 +21,7 @@ class JobScraper
     @url = url
     @user = User.find(userID)
     @counter = 1
-    @pages = pages
+    @pages = pages.to_i
   end
 
   def scrape(skillset, region)
@@ -37,17 +39,16 @@ class JobScraper
     filter_jobs
 
     gather_requirements do |job_reqs|
-      Job.create(
-      title: page.first(".jobtitle").text,
-      description: job_reqs.join(" "),
-      company: page.first(".company").text,
-      location: page.first(".location").text,
-      post_date: page.first(".date").text,
-      url: page.current_url,
-      score: matching_algorithm(job_reqs).round(2),
-      applied: false,
-      logo: Job.autocomplete(page.first(".company").text),
-      user_id: @user.id
+      Job.create(title: page.first(".jobtitle").text,
+                 description: job_reqs.join(" "),
+                 company: page.first(".company").text,
+                 location: page.first(".location").text,
+                 post_date: page.first(".date").text,
+                 url: page.current_url,
+                 score: matching_algorithm(job_reqs).round(2),
+                 applied: false,
+                 logo: Job.autocomplete(page.first(".company").text),
+                 user_id: @user.id
       )
     end
     @counter += 1

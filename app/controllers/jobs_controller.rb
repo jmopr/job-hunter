@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :require_logged_in, only: [:show, :match, :destroy]
+  before_action :require_logged_in, only: [:index, :match, :destroy]
 
   def new
     @job = Job.new
@@ -24,7 +24,7 @@ class JobsController < ApplicationController
 
   def show
     @user = current_user
-    @job= Job.find(params[:id])
+    @job = Job.find(params[:id])
     @jobs = Job.applied
     #   render json: Job.find(params[:id]), status: :ok
     # rescue
@@ -38,10 +38,9 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Job.new(params)
+    @job = Job.new(job_params)
     @job.save
     # if job.save
-    #
     #   render json: job, status: :created, location: job
     # else
     #   render json: job.errors, status: :unprocessable_entity

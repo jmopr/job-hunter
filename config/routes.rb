@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root to: 'sessions#new'
   resource :sessions, only: [:new, :create]
-  resource :users, only: [:new, :create] do
-  # resource :users do
+  # resource :users, only: [:new, :create] do
+  resource :users do
     resources :jobs, only: [:new, :index, :show, :destroy]
   end
 
