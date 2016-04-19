@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'capybara-webkit'
 gem 'timeout'
 gem 'capybara'
 gem 'activerecord-reset-pk-sequence'
@@ -44,6 +43,7 @@ end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'capybara-webkit'
   gem 'selenium'
   gem 'selenium-webdriver'
   gem 'byebug'
