@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :require_logged_in, only: [:show, :match, :destroy]
+  before_action :require_logged_in, only: [:index, :show, :match, :destroy]
 
   def new
     @job = Job.new
