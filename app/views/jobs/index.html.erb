@@ -16,6 +16,11 @@
   <%= link_to 'Resume', @user.document.url %>
 </p>
 
+<%= form_for @user, url: users_path, html: { multipart: true } do |f| %>
+  <%= f.file_field :document %>
+  <%= f.submit "Update Resume" %>
+<% end %>
+
 <form method="get" action="match" class="button_to">
   <input value="Match Jobs" type="submit" />
 </form>
