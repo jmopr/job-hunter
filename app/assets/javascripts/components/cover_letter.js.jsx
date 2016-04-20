@@ -57,39 +57,29 @@ var CoverBox = React.createClass({
           </div>
           <div className="col-md-5 loc">
             <div id="number-projects"></div>
-          <span>Github Projects</span>
+            <span>Github Projects</span>
           </div>
-          </div>
-          <div className = "row">
+        </div>
+        <div className = "row">
           <div className="col-md-6 col-md-offset-3 match text-center">
             <div id="progressbar"></div>
             <div>Percentage Match</div>
-              <div className="cavs">based on Algorithm</div>
+            <div className="cavs">based on Algorithm</div>
           </div>
-          </div>
-
-      <div className="clearfix"></div>
+        </div>
+        <div className="clearfix"></div>
         <p>
           Hi!
         </p>
-        <p id="body-paragraph">I'm happy that you're reading this. I think it would be awesome
-          to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}
-        </strong>. We should really talk about the job you posted <a href={this.props.job.url}
-        target="_blank">here</a>. {contact_method(this.props.user.phone_number)}
-        <div className="grid-of-stats">
-          <div className="match block">
-            {this.props.job.score}% <br/>
-          <span>Match</span>
-        </div>
-      </div>
-        <p>
-          Thanks again,<br></br>
-        {this.props.user.first_name} {this.props.user.last_name}
-      </p>
+        <p id="body-paragraph">I'm happy that you're reading this. I think it would be awesome to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>. We should really talk about the job you posted <a href={this.props.job.url}target="_blank">here</a>. {contact_method(this.props.user.phone_number)}</p>
       <p>
-        <a className="btn btn-lg btn-success btn-block" href={"mailto:" + this.props.user.email + "?subject=Your application to Spotify"} role="button">Let's talk!</a>
-      </p>
-    </div>
-  );
+        Thanks again,<br></br>
+      {this.props.user.first_name} {this.props.user.last_name}
+    </p>
+    <p>
+      <a className="btn btn-lg btn-success btn-block" href={"mailto:" + this.props.user.email + "?subject=Your application to Spotify"} role="button">Let's talk!</a>
+    </p>
+  </div>
+);
 }
 })
