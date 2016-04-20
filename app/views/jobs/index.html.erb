@@ -1,31 +1,37 @@
 <div class= "container">
   <%= react_component('JobsBox', jobs: @jobs) %>
+  <p><%= "Total jobs found: #{@jobs.count}" %></p>
 </div>
 
-<%= form_tag("/search", method: "get") do %>
-  <%= label_tag(:title, "Enter job title or keywords") %>
-  <%= text_field_tag(:title, nil, placeholder: 'Job Title') %>
-  <%= label_tag(:location, "Enter city, state or zip code") %>
-  <%= text_field_tag(:location, nil, placeholder: 'City') %>
-  <%= label_tag(:pages, "Pages to inspect") %>
-  <%= text_field_tag(:pages, nil, placeholder: 'Number of Pages') %>
-  <%= submit_tag("Find Jobs") %>
-<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_tag("/search", method: "get") do %>
+    <%= label_tag(:title, "Enter job title or keywords") %>
+    <%= text_field_tag(:title, nil, placeholder: 'Job Title') %>
+    <%= label_tag(:location, "Enter city, state or zip code") %>
+    <%= text_field_tag(:location, nil, placeholder: 'City') %>
+    <%= label_tag(:pages, "Pages to inspect") %>
+    <%= text_field_tag(:pages, nil, placeholder: 'Number of Pages') %>
+    <%= submit_tag("Find Jobs") %>
+    <% end %>
 
-<%= "Total jobs found: #{@jobs.count}" %>
-
-<%= form_for @user, url: users_path, html: { multipart: true } do |f| %>
-  <%= f.file_field :document %>
-  <%= f.submit "Update Resume" %>
-<% end %>
-
-<form method="get" action="match" class="button_to">
-  <input value="Match Jobs" type="submit" />
-</form>
-
-<form method="get" action="apply" class="button_to">
-  <input value="Apply to Jobs" type="submit" />
-</form>
-
-<%= button_to "Delete", {:controller => :jobs,
-      :action => 'destroy', :id => @user.id }, :method => :delete %>
+    <%= form_for @user, url: users_path, html: { multipart: true } do |f| %>
+      <%= f.file_field :document %>
+      <%= f.submit "Update Resume", class: "btn btn-primary" %>
+    <% end %>
+    <p>
+    <form method="get" action="match" class="button_to">
+      <input value="Match Jobs" type="submit" />
+    </form>
+    </p>
+    <p>
+    <form method="get" action="apply" class="button_to">
+      <input value="Apply to Jobs" type="submit" />
+    </form>
+    </p>
+    <p>
+    <%= button_to "Delete", {:controller => :jobs,
+          :action => 'destroy', :id => @user.id }, :method => :delete %>
+    </p>
+  </div>
+</div>

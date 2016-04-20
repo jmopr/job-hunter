@@ -9,26 +9,21 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.number_of_lines, @user.number_of_projects = @user.get_the_bytes(user_params[:github])
     @user.document = user_params[:document]
+    unless user_params[:github] == ""
+      @user.number_of_lines, @user.number_of_projects = @user.get_the_bytes(user_params[:github])
+    end
     if @user.save
-      redirect_to users_jobs_path, notice: "Created user"
+      flash[:success] = "Signed up was successful! Welcome, #{@user.first_name}!"
+      redirect_to users_jobs_path
     else
-      flash[:error] = "Invalid email/password combination."
-      render action: 'new'
+      render 'new'
     end
   end
 
   def update
-    respond_to do |format|
-      if current_user.update(user_params)
-        format.html { redirect_to users_jobs_path, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    current_user.update(user_params)
+    redirect_to users_jobs_path
   end
 
   private

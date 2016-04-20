@@ -1,36 +1,40 @@
+<% provide(:title, 'Sign up') %>
 <h1>Sign up</h1>
-  <%= form_for @user, url: users_path, html: { multipart: true } do |f| %>
-    <p>
-      <%= f.label :first_name %> <%= f.text_field :first_name, placeholder: "First Name" %>
-    </p>
-    <p>
-      <%= f.label :last_name %> <%= f.text_field :last_name, placeholder: "Last Name" %>
-    </p>
-    <p>
-      <%= f.label :email %> <%= f.email_field :email, placeholder: "Email" %>
-    </p>
-    <p>
-      <%= f.label :phone_number %> <%= f.phone_field :phone_number, placeholder: "xxx-xxx-xxxx" %>
-    </p>
-    <p>
-      <%= f.label :github %> <%= f.text_field :github, placeholder: "Github Link" %>
-    </p>
-    <p>
-      <%= f.label :linkedin %> <%= f.text_field :linkedin, placeholder: "LinkedIN" %>
-    </p>
-    <p>
-      <%= f.label :username %> <%= f.text_field :username, placeholder: "Username" %>
-    </p>
-    <p>
-      <%= f.label :password %> <%= f.password_field :password, placeholder: "Password" %>
-    </p>
-    <p>
-      <%= f.label :password_confirmation %> <%= f.password_field :password_confirmation, placeholder: "Retype Password" %>
-    </p>
-    <p>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @user, url: users_path, html: { multipart: true } do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, placeholder: "First Name", class: 'form-control' %>
+
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, placeholder: "Last Name", class: 'form-control' %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, placeholder: "Email", class: 'form-control' %>
+
+      <%= f.label :phone_number %>
+      <%= f.phone_field :phone_number, placeholder: "xxx-xxx-xxxx", class: 'form-control' %>
+
+      <%= f.label :github %>
+      <%= f.text_field :github, placeholder: "Github Username", class: 'form-control' %>
+
+      <%= f.label :linkedin %>
+      <%= f.text_field :linkedin, placeholder: "LinkedIN", class: 'form-control' %>
+
+      <%= f.label :username %>
+      <%= f.text_field :username, placeholder: "Username", class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, placeholder: "Password", class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Password Confirmation" %>
+      <%= f.password_field :password_confirmation, placeholder: "Retype Password", class: 'form-control' %>
+
       <%= f.file_field :document %>
-    </p>
-    <p>
-      <%= f.submit "Sign Up" %>
-    </p>
-  <% end %>
+
+      <%= f.submit "Create my account", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
