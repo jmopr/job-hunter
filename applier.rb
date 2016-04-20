@@ -40,7 +40,7 @@ class JobApplier
     phone_number = @user.phone_number
     link_to_github = "https://github.com/jmopr/job-hunter/blob/master/matcher.rb"
     percent = @job.score.round(2)
-    url_for_analysis = "http://localhost:3000/users/jobs/#{@job.id}"
+    url_for_analysis = "http://job-diana.herokuapp.com/users/jobs/#{@job.id}"
     fit = category @job.score
     cover_letter_body = %Q(
     Hey!

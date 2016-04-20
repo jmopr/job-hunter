@@ -2,7 +2,7 @@ var CoverPage = React.createClass({
   render: function() {
     return (
       <div className="container jobs-container">
-        <NavBar/>
+        <NavBar user = {this.props.user} job = {this.props.job}/>
         <CoverBox job = {this.props.job} number = {this.props.number} user = {this.props.user} />
       </div>
     );
@@ -27,8 +27,7 @@ var NavBar = React.createClass({
             <ul className="nav nav-pills pull-right">
               <li role="presentation"><a href="#" target="_blank">About</a></li>
               <li role="presentation"><a href="https://github.com/jmopr/job-hunter" target="_blank">Source Code</a></li>
-              <li role="presentation"><a href="mailto:jmopr83@gmail.com?subject=Awesome We Should Talk">
-                Contact</a></li>
+              <li role="presentation"><a href={"mailto:" + this.props.user.email + "?subject=" + this.props.job.company + " wants to talk"}>Contact</a></li>
             </ul>
           </nav>
           <h3 className="text-muted">The Job-Hunter</h3>
@@ -77,7 +76,7 @@ var CoverBox = React.createClass({
       {this.props.user.first_name} {this.props.user.last_name}
     </p>
     <p>
-      <a className="btn btn-lg btn-success btn-block" href={"mailto:" + this.props.user.email + "?subject=Your application to Spotify"} role="button">Let's talk!</a>
+      <a className="btn btn-lg btn-success btn-block" href={"mailto:" + this.props.user.email + "?subject=" + this.props.job.company + " wants to talk"} role="button">Let's talk!</a>
     </p>
   </div>
 );
