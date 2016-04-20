@@ -1,7 +1,9 @@
 <h4> Job Matches </h4>
 <table class="table table-striped table-bordered text-center table table-hover">
   <tr>
+    <th class="text-center"> Job Selection </th>
     <th class="text-center"> Job ID </th>
+    <th class="text-center"> Job Hex_ID </th>
     <th class="text-center"> Title </th>
     <th class="text-center"> Company </th>
     <th class="text-center"> Description </th>
@@ -11,7 +13,14 @@
     <th class="text-center"> Apply </th>
   </tr>
   <% @jobs.each do |job| %>
+    <td>
+      <form method="get" action="apply" class="button_to">
+        <%= check_box_tag("apply") %>
+        <input value="Apply" type="submit" />
+      </form>
+    </td>
     <td><%= "#{job.id}" %></td>
+    <td><%= "#{job.hex_id}" %></td>
     <td><%= "#{job.title}" %></td>
     <td><%= "#{job.company}" %></td>
     <td><%= "#{job.description}" %></td>
@@ -32,4 +41,5 @@
 <form method="get" action="apply" class="button_to">
   <input value="Apply to Jobs" type="submit" />
 </form>
+
 <%= link_to "Back To General Jobs", users_jobs_path %>

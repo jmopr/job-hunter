@@ -6,6 +6,14 @@ class Job < ActiveRecord::Base
   scope :match, -> { where('score > 50') }
   scope :applied, -> { where('applied = ?', true) }
 
+  def self.hex(id)
+    Digest::MD5.hexdigest id
+  end
+
+  def to_param
+    hex_id
+  end
+
   def self.logo_validator(url)
     res = Faraday.get("https://logo.clearbit.com/#{url}")
     unless res.status == 200

@@ -9,10 +9,10 @@ class JobScraper
   include Capybara::DSL
 
   def initialize(url, userID, pages)
-    Capybara.default_driver = :webkit
-    Capybara.javascript_driver = :webkit
-    # Capybara.default_driver = :selenium
-    # Capybara.javascript_driver = :selenium
+    # Capybara.default_driver = :webkit
+    # Capybara.javascript_driver = :webkit
+    Capybara.default_driver = :selenium
+    Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
@@ -39,7 +39,7 @@ class JobScraper
     filter_jobs
 
     gather_requirements do |job_reqs|
-      Job.create(title: page.first(".jobtitle").text,
+      job = Job.create(title: page.first(".jobtitle").text,
                  description: job_reqs.join(" "),
                  company: page.first(".company").text,
                  location: page.first(".location").text,
@@ -50,6 +50,7 @@ class JobScraper
                  logo: Job.autocomplete(page.first(".company").text),
                  user_id: @user.id
       )
+      job.update(hex_id: Job.hex(job.id.to_s))
     end
     @counter += 1
     if @counter <= @pages
@@ -83,7 +84,7 @@ class JobScraper
     @job_links.each do |link|
       # get a handle on the new window so we capybara can update the page
       job_listing_window = window_opened_by { link.click }
-      sleep(1)
+      sleep(3)
       # in the job listings page we opened in a new tab print the job description
       within_window job_listing_window do
         reqs = extract_requirements

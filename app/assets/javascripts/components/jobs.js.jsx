@@ -3,6 +3,8 @@ var JobsList = React.createClass({
     var JobsNodes = this.props.data.map(function(job) {
       return (
         <tr key={job.id}>
+          <td>{job.id}</td>
+          <td>{job.hex_id}</td>
           <td>{job.title}</td>
           <td>{job.description}</td>
           <td>{job.score}</td>
@@ -27,6 +29,8 @@ var JobsTable = React.createClass({
     <table className= "table table-striped table-bordered table-condensed" style ={tableStyle} >
       <thead>
         <tr>
+          <th>ID</th>
+          <th>Hex ID</th>
           <th>Title</th>
           <th>Description</th>
           <th>Score</th>

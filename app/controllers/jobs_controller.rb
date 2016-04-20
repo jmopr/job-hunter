@@ -1,13 +1,12 @@
 class JobsController < ApplicationController
-  before_action :require_logged_in, only: [:index, :match, :destroy]
+  before_action :require_logged_in, only: [:new, :index, :match, :destroy]
 
   def new
     @job = Job.new
   end
 
   def search
-    @user = current_user
-    @jobs = Job.get_jobs(@user, params[:title], params[:location], params[:pages])
+    @jobs = Job.get_jobs(current_user, params[:title], params[:location], params[:pages])
     redirect_to users_jobs_path
   end
 
@@ -23,7 +22,7 @@ class JobsController < ApplicationController
   end
 
   def show
-    @job = Job.find(params[:id])
+    @job = Job.find_by(hex_id: params[:id])
     @user = current_user || User.find(@job.user_id)
     #   render json: Job.find(params[:id]), status: :ok
     # rescue
@@ -57,6 +56,6 @@ class JobsController < ApplicationController
 
   private
   def job_params
-    params.require(:job).permit(:title, :description)
+    params.require(:job).permit(:title, :company, :description)
   end
 end
