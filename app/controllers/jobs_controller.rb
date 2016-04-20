@@ -23,8 +23,8 @@ class JobsController < ApplicationController
   end
 
   def show
-    @user = current_user
     @job = Job.find(params[:id])
+    @user = current_user || User.find(@job.user_id)
     #   render json: Job.find(params[:id]), status: :ok
     # rescue
     #   render json: {job: {errors: "job not found"}}, status: :not_found

@@ -47,9 +47,9 @@ function start_count(){
 bar.text.style.fontFamily = '"Ubuntu", Helvetica, sans-serif';
 bar.text.style.fontSize = '2.5em';
 
-bar.animate("<%=@job.score/100%>");
-var numAnim = new CountUp("number-lines", 0, "<%=@user.number_of_lines%>", 0, 4)
+bar.animate("<%= @job.score/100 %>");
+var numAnim = new CountUp("number-lines", 0, "<%= @user.number_of_lines %>", 0, 4)
 numAnim.start();
-var numAnimtoo = new CountUp("number-projects", 0, "<%=@user.number_of_projects%>", 0, 4)
+var numAnimtoo = new CountUp("number-projects", 0, "<%= @user.number_of_projects %>", 0, 4)
 numAnimtoo.start();}
 </script>

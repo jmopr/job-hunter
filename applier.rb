@@ -133,9 +133,9 @@ class JobApplier
   end
 
   def category percentage
-    if percentage > 90
+    if percentage > 85
       'excellent'
-    elsif percentage > 70 && percentage < 89
+    elsif percentage > 65 && percentage <= 85
       'great'
     else
       'good'
