@@ -71,7 +71,7 @@ var CoverBox = React.createClass({
         <p>
           Hi!
         </p>
-        <p id="body-paragraph">I'm happy that you're reading this. I think it would be awesome to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>. We should really talk about the job you posted <a href={this.props.job.url}target="_blank">here</a>. {contact_method(this.props.user.phone_number)}</p>
+        <p className= "text-justify" id="body-paragraph">I'm happy that you're reading this. I think it would be awesome to work at <strong>{this.props.job.company}</strong> as a <strong>{this.props.job.title}</strong>. We should really talk about the job you posted <a href={this.props.job.url}target="_blank">here</a>. {contact_method(this.props.user.phone_number)}</p>
       <p>
         Thanks again,<br></br>
       {this.props.user.first_name} {this.props.user.last_name}
