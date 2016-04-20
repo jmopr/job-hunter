@@ -4,7 +4,7 @@ class Job < ActiveRecord::Base
   validates :title, :company, uniqueness: true
 
   scope :match, -> { where('score > 50') }
-  scope :applied, -> { where('applied: true') }
+  scope :applied, -> { where('applied = ?', true) }
 
   def self.logo_validator(url)
     res = Faraday.get("https://logo.clearbit.com/#{url}")

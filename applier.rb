@@ -8,10 +8,10 @@ class JobApplier
   include Capybara::DSL
 
   def initialize(userID, jobID)
-    Capybara.default_driver = :webkit
-    Capybara.javascript_driver = :webkit
-    # Capybara.default_driver = :selenium
-    # Capybara.javascript_driver = :selenium
+    # Capybara.default_driver = :webkit
+    # Capybara.javascript_driver = :webkit
+    Capybara.default_driver = :selenium
+    Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
@@ -21,15 +21,17 @@ class JobApplier
   end
 
   def scrape
-    visit @job.url
-    sleep(1)
-    page.find('a.indeed-apply-button', match: :first).click
-    sleep(1)
+    unless @job.applied
+      visit @job.url
+      sleep(1)
+      page.find('a.indeed-apply-button', match: :first).click
+      sleep(1)
 
-    page.driver.within_frame(1) do
-      page.driver.within_frame(0) do
-        complete_step_one
-        complete_additional_steps
+      page.driver.within_frame(1) do
+        page.driver.within_frame(0) do
+          complete_step_one
+          complete_additional_steps
+        end
       end
     end
   end
