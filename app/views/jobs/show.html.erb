@@ -5,7 +5,7 @@
 <script>
 window.onload = function () {
   var happened = 0;
-  var oTop = $('#body-paragraph').offset().top - window.innerHeight;
+  var oTop = $('#body-paragraph').offset().top - $(window).height;
   $(window).scroll(function () {
     var pTop = $('body').scrollTop();
     if (pTop > oTop && (happened < 1)) {
@@ -16,7 +16,6 @@ window.onload = function () {
 };
 function start_count() {
   var bar = new ProgressBar.SemiCircle(progressbar, {
-
     strokeWidth: 6,
     color: '#FFEA82',
     trailColor: '#eee',
