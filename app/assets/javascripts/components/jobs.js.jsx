@@ -9,6 +9,7 @@ var JobsList = React.createClass({
           <td>{job.description}</td>
           <td>{job.score}</td>
           <td>{job.company}</td>
+          <td>{job.location}</td>
           <td>{job.post_date}</td>
         </tr>
       );
@@ -35,6 +36,7 @@ var JobsTable = React.createClass({
           <th>Description</th>
           <th>Score</th>
           <th>Company</th>
+          <th>Location</th>
           <th>Post Date</th>
         </tr>
       </thead>

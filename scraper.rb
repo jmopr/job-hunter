@@ -9,10 +9,10 @@ class JobScraper
   include Capybara::DSL
 
   def initialize(url, userID, pages)
-    # Capybara.default_driver = :webkit
-    # Capybara.javascript_driver = :webkit
-    Capybara.default_driver = :selenium
-    Capybara.javascript_driver = :selenium
+    Capybara.default_driver = :webkit
+    Capybara.javascript_driver = :webkit
+    # Capybara.default_driver = :selenium
+    # Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
       config.allow_url("http://www.indeed.com/")
       config.block_unknown_urls
@@ -47,9 +47,10 @@ class JobScraper
                  url: page.current_url,
                  score: matching_algorithm(job_reqs).round(2),
                  applied: false,
-                 logo: Job.autocomplete(page.first(".company").text),
+                #  logo: Job.autocomplete(page.first(".company").text),
                  user_id: @user.id
       )
+      job.update(logo: Job.autocomplete(:company))
       job.update(hex_id: Job.hex(job.id.to_s))
     end
     @counter += 1
@@ -138,4 +139,5 @@ class JobScraper
   end
 end
 
+p ARGV
 JobScraper.new('http://www.indeed.com/', ARGV[0], ARGV[3]).scrape(ARGV[1], ARGV[2])

@@ -113,7 +113,7 @@ class JobApplier
       'Website' => "Data explorer for salary data for miami dade county: http://codeformiami.herokuapp.com/",
       'LinkedIn' => @user.linkedin,
       'Reference' => [
-        "Auston Bunsen auston@wyncode.co 954-345-4563",
+        "Auston Bunsen auston@wyncode.co 954-670-3289",
         "Rodney Perez rodney@gmail.com 305-345-4563"
       ],
       'salary expectations' => '$50,000'
