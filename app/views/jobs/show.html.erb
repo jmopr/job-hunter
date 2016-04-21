@@ -3,21 +3,7 @@
 </div>
 
 <script>
-window.onload = function () {
-  var happened = 0;
-  var oTop = $('#body-paragraph').offset().top - $(window).height;
-  $('body').on('touchmove', function(e){
-    console.log($(this).scrollTop)
-  })
-  // $(window).scroll(function () {
-  //   var pTop = $('body').scrollTop();
-  //   if (pTop > oTop && (happened < 1)) {
-  //     start_count();
-  //     happened++;
-  //   }
-  // });
-};
-function start_count() {
+window.onload = function start_count() {
   var bar = new ProgressBar.SemiCircle(progressbar, {
     strokeWidth: 6,
     color: '#FFEA82',
