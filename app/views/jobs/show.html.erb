@@ -4,6 +4,7 @@
 
 <script>
 window.onload = function start_count() {
+
   var bar = new ProgressBar.SemiCircle(progressbar, {
     strokeWidth: 6,
     color: '#FFEA82',
@@ -34,10 +35,10 @@ window.onload = function start_count() {
   bar.text.style.fontFamily = '"Ubuntu", Helvetica, sans-serif';
   bar.text.style.fontSize = '2.5em';
 
-  bar.animate("0.0");
-  var numAnim = new CountUp("number-lines", 0, "9041", 0, 4);
-  numAnim.start();
-  var numAnimtoo = new CountUp("number-projects", 0, "25", 0, 4);
-  numAnimtoo.start();
+  bar.animate("<%= @job.score/100 %>");
+  var numAnim = new CountUp("number-lines", 0, "<%= @user.number_of_lines %>", 0, 4);
+  window.setTimeout(numAnim.start, 2000)
+  var numAnimtoo = new CountUp("number-projects", 0, "<%= @user.number_of_projects %>", 0, 4);
+  window.setTimeout(numAnimtoo.start, 2000)
 }
 </script>
