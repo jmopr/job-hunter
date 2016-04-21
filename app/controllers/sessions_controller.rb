@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if @user
       # logged in
       flash[:success] = "Welcome to the Job Hunter, #{@user.first_name}!"
-      session[:user_id] = @user.id
+      log_in @user
       redirect_to users_jobs_path
     else
       flash.now[:danger] = "Invalid email/password combination."
@@ -16,5 +16,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    log_out
+    redirect_to login_path
   end
 end

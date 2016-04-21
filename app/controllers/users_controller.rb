@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       @user.number_of_lines, @user.number_of_projects = @user.get_the_bytes(user_params[:github])
     end
     if @user.save
+      log_in @user
       flash[:success] = "Signed up was successful! Welcome, #{@user.first_name}!"
       redirect_to users_jobs_path
     else
