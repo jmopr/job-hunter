@@ -1,4 +1,4 @@
-<h4> Job Matches </h4>
+<h4> Job Matches from Indeed(Easy to Apply)</h4>
 <table class="table table-striped table-bordered text-center table table-hover">
   <tr>
     <th class="text-center"> Job Selection </th>
@@ -31,6 +31,7 @@
   </tr>
   <% end %>
 </table>
+<%= paginate @jobs %>
 
 <%= "Match jobs: #{@jobs.match.count}" %>
 

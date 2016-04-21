@@ -21,7 +21,7 @@ class JobApplier
   end
 
   def scrape
-    unless @job.applied
+    # unless @job.applied
       visit @job.url
       sleep(1)
       page.find('a.indeed-apply-button', match: :first).click
@@ -33,7 +33,7 @@ class JobApplier
           complete_additional_steps
         end
       end
-    end
+    # end
   end
 
   def complete_step_one
@@ -42,7 +42,7 @@ class JobApplier
     phone_number = @user.phone_number
     link_to_github = "https://github.com/jmopr/job-hunter/blob/master/matcher.rb"
     percent = @job.score.round(2)
-    url_for_analysis = "http://job-diana.herokuapp.com/users/jobs/#{@job.id}"
+    url_for_analysis = "http://job-diana.herokuapp.com/users/jobs/#{@job.hex_id}"
     fit = category @job.score
     cover_letter_body = %Q(
     Hey!
@@ -116,7 +116,9 @@ class JobApplier
         "Auston Bunsen auston@wyncode.co 954-345-4563",
         "Rodney Perez rodney@gmail.com 305-345-4563"
       ],
-      'salary expectations' => '$50,000'
+      'salary expectations' => '$50,000',
+      'How did you hear about this job?' => 'indeed.com',
+      'Github' => "https://github.com/#{@user.github}"
     }
 
     within('.question-page') do

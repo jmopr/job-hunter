@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'timeout'
 gem 'capybara'
 gem 'activerecord-reset-pk-sequence'
+gem 'kaminari'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'

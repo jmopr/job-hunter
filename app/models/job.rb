@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   belongs_to :user
   validates :title, :company, :description, presence: true
   validates :title, :company, uniqueness: true
+  paginates_per 25
 
   scope :match, -> { where('score > 50') }
   scope :applied, -> { where('applied = ?', true) }
