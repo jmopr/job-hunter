@@ -39,18 +39,21 @@ class JobScraper
     filter_jobs
 
     gather_requirements do |job_reqs|
+      match = matching_algorithm(job_reqs).round(2)
+      company = page.first(".company").text.downcase
       job = Job.create(title: page.first(".jobtitle").text,
                  description: job_reqs.join(" "),
-                 company: page.first(".company").text,
+                 company: company,
                  location: page.first(".location").text,
                  post_date: page.first(".date").text,
                  url: page.current_url,
-                 score: matching_algorithm(job_reqs).round(2),
+                 score: match,
                  applied: false,
-                #  logo: Job.autocomplete(page.first(".company").text),
                  user_id: @user.id
       )
-      job.update(logo: Job.autocomplete(:company))
+      if match > 40
+        job.update(logo: Job.autocomplete(company))
+      end
       job.update(hex_id: Job.hex(job.id.to_s))
     end
     @counter += 1
