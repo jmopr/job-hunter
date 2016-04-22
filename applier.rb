@@ -23,16 +23,20 @@ class JobApplier
   def scrape
     unless @job.applied
       visit @job.url
-      sleep(1)
-      page.find('a.indeed-apply-button', match: :first).click
-      sleep(1)
+      unless page.has_css?('p.expired')
+        sleep(1)
+        page.find('a.indeed-apply-button', match: :first).click
+        sleep(1)
 
-      page.driver.within_frame(1) do
-        page.driver.within_frame(0) do
-          complete_step_one
-          complete_additional_steps
+        page.driver.within_frame(1) do
+          page.driver.within_frame(0) do
+            complete_step_one
+            complete_additional_steps
+          end
         end
       end
+      Job.delete(@job.id)
+      page.close
     end
   end
 
@@ -116,12 +120,13 @@ class JobApplier
       'projects' => "I actually built a data explorer based on salary data for miami dade county: http://codeformiami.herokuapp.com/",
       'Website' => "Data explorer for salary data for miami dade county: http://codeformiami.herokuapp.com/",
       'LinkedIn' => @user.linkedin,
+      'How did you hear about this job?' => 'indeed.com',
       'Reference' => [
         "Auston Bunsen auston@wyncode.co 954-670-3289",
         "Rodney Perez rodney@gmail.com 305-345-4563"
       ],
       'salary expectations' => '$50,000',
-      'How did you hear about this job?' => 'indeed.com'
+      'Github' => "https://github.com/#{@user.github}"
     }
 
     within('.question-page') do
