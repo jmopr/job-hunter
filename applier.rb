@@ -79,13 +79,17 @@ class JobApplier
   def complete_additional_steps
     # only complete required fields (skip optional)
     all('label').each do |field|
-      unless field.text.include? 'optional'
+      if !field.text.include? 'optional'
         answer_radio_questions
         answer_text_questions
         if page.has_selector?('a.button_content.form-page-next')
           page.find('a.button_content.form-page-next', match: :first).click
+          sleep(1)
         end
+      elsif page.has_selector?('a.button_content.form-page-next')
+        page.find('a.button_content.form-page-next', match: :first).click
         sleep(1)
+        complete_additional_steps
       end
     end
     until page.has_selector?('input#apply')
