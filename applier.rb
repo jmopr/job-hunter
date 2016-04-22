@@ -127,6 +127,7 @@ class JobApplier
       ],
       'salary expectations' => '$50,000',
       'Github' => "https://github.com/#{@user.github}"
+      'In 150 characters or fewer, tell us what makes you unique. Try to be creative and say something that will catch our eye!' => "I am a driven individual that will not stop until I find a solution to any type of problem." 
     }
 
     within('.question-page') do
