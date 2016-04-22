@@ -3,7 +3,7 @@ class Job < ActiveRecord::Base
   validates :title, :company, :description, presence: true
   validates :title, :company, uniqueness: true
 
-  scope :match, -> { where('score > 50') }
+  scope :match, -> { where('score > 40') }
   scope :applied, -> { where('applied = ?', true) }
 
   def self.hex(id)

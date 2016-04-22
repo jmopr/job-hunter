@@ -120,7 +120,8 @@ class JobApplier
         "Auston Bunsen auston@wyncode.co 954-670-3289",
         "Rodney Perez rodney@gmail.com 305-345-4563"
       ],
-      'salary expectations' => '$50,000'
+      'salary expectations' => '$50,000',
+      'How did you hear about this job?' => 'indeed.com'
     }
 
     within('.question-page') do
@@ -151,6 +152,7 @@ class JobApplier
     check = page.find('#apply', match: :first).click
     if check == 'ok'
       @job.update(applied: true)
+      page.close
     end
   end
 end
