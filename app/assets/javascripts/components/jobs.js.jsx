@@ -25,7 +25,6 @@ var tableStyle = {
   width: '100%'
 }
 var JobsTable = React.createClass({
-
   render: function(){ return (
     <table className= "table table-striped table-bordered table-condensed" style ={tableStyle} >
       <thead>
