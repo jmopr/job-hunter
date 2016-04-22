@@ -17,14 +17,14 @@ default: &default
   pool: 5
   timeout: 5000
 
-development:
-  database: d3o53a8njsqhfq
-  host: ec2-54-163-247-73.compute-1.amazonaws.com
-  username: bxfojyrnfrwbbn
-  password: gK0L3dre7ZZpHXiTkkY8OupKJc
-  adapter: postgresql
-  sslmode: require
-  encoding: unicode
+# development:
+#   database: d3o53a8njsqhfq
+#   host: ec2-54-163-247-73.compute-1.amazonaws.com
+#   username: bxfojyrnfrwbbn
+#   password: gK0L3dre7ZZpHXiTkkY8OupKJc
+#   adapter: postgresql
+#   sslmode: require
+#   encoding: unicode
 
   # <<: *default
 # postgres://bxfojyrnfrwbbn:gK0L3dre7ZZpHXiTkkY8OupKJc@ec2-54-163-247-73.compute-1.amazonaws.com:5432/
