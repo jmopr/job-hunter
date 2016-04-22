@@ -12,7 +12,7 @@ class JobsController < ApplicationController
 
   def match
     @user = current_user
-    @jobs = Job.match
+    @jobs = Job.match.order(:id).page params[:page]
   end
 
   def apply
