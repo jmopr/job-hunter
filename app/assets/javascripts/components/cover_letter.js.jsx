@@ -50,7 +50,7 @@ var CoverBox = React.createClass({
         </div>
         <div className="row grid-of-stats text-center">
           <div className="col-md-5 loc">
-            <div id="number-lines"></div>
+            <div id="number-lines" ></div>
             <span>Lines of Ruby written</span>
             <div className="cavs">(approximately)</div>
           </div>

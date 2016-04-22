@@ -32,7 +32,6 @@ class JobsController < ApplicationController
   def index
     @user = current_user
     @jobs = Job.order(:id).page params[:page]
-    #@jobs = Job.all
     # render json: Job.list(job_params), status: :ok
   end
 

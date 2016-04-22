@@ -4,7 +4,7 @@ class Job < ActiveRecord::Base
   validates :title, :company, uniqueness: true
   paginates_per 25
 
-  scope :match, -> { where('score > 50') }
+  scope :match, -> { where('score > 40') }
   scope :applied, -> { where('applied = ?', true) }
 
   def self.hex(id)

@@ -1,11 +1,12 @@
-<h4>Jobs Scraped from Indeed(Easy to Apply)</h4>
+<h4>Jobs Found from Indeed(Easy to Apply)</h4>
+
 <div class= "container">
   <%= react_component('JobsBox', jobs: @jobs) %>
 </div>
 <%= paginate @jobs %>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-6">
     <%= form_tag("/search", method: "get") do %>
     <%= label_tag(:title, "Enter job title or keywords") %>
     <%= text_field_tag(:title, nil, placeholder: 'Job Title') %>
@@ -31,8 +32,8 @@
     </form>
     </p>
     <p>
-    <%= button_to "Delete", {:controller => :jobs,
-          :action => 'destroy', :id => @user.id }, :method => :delete %>
+    <%= button_to "Delete", {:controller => :jobs, :action => 'destroy', :id => @user.id },
+        :method => :delete %>
     </p>
   </div>
 </div>

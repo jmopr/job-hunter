@@ -21,19 +21,23 @@ class JobApplier
   end
 
   def scrape
-    # unless @job.applied
+    unless @job.applied
       visit @job.url
-      sleep(1)
-      page.find('a.indeed-apply-button', match: :first).click
-      sleep(1)
+      unless page.has_css?('p.expired')
+        sleep(1)
+        page.find('a.indeed-apply-button', match: :first).click
+        sleep(1)
 
-      page.driver.within_frame(1) do
-        page.driver.within_frame(0) do
-          complete_step_one
-          complete_additional_steps
+        page.driver.within_frame(1) do
+          page.driver.within_frame(0) do
+            complete_step_one
+            complete_additional_steps
+          end
         end
       end
-    # end
+      Job.delete(@job.id)
+      page.close
+    end
   end
 
   def complete_step_one
@@ -79,13 +83,17 @@ class JobApplier
   def complete_additional_steps
     # only complete required fields (skip optional)
     all('label').each do |field|
-      unless field.text.include? 'optional'
+      if !field.text.include? 'optional'
         answer_radio_questions
         answer_text_questions
         if page.has_selector?('a.button_content.form-page-next')
           page.find('a.button_content.form-page-next', match: :first).click
+          sleep(1)
         end
+      elsif page.has_selector?('a.button_content.form-page-next')
+        page.find('a.button_content.form-page-next', match: :first).click
         sleep(1)
+        complete_additional_steps
       end
     end
     until page.has_selector?('input#apply')
@@ -112,13 +120,15 @@ class JobApplier
       'projects' => "I actually built a data explorer based on salary data for miami dade county: http://codeformiami.herokuapp.com/",
       'Website' => "Data explorer for salary data for miami dade county: http://codeformiami.herokuapp.com/",
       'LinkedIn' => @user.linkedin,
+      'How did you hear about this job?' => 'indeed.com',
       'Reference' => [
-        "Auston Bunsen auston@wyncode.co 954-345-4563",
+        "Auston Bunsen auston@wyncode.co 954-670-3289",
         "Rodney Perez rodney@gmail.com 305-345-4563"
       ],
       'salary expectations' => '$50,000',
       'How did you hear about this job?' => 'indeed.com',
-      'Github' => "https://github.com/#{@user.github}"
+      'Github' => "https://github.com/#{@user.github}",
+      'In 150 characters or fewer, tell us what makes you unique. Try to be creative and say something that will catch our eye!' => "I am a driven individual that will not stop until I find a solution to any type of problem."
     }
 
     within('.question-page') do
@@ -149,6 +159,7 @@ class JobApplier
     check = page.find('#apply', match: :first).click
     if check == 'ok'
       @job.update(applied: true)
+      page.close
     end
   end
 end
