@@ -33,7 +33,7 @@ class JobsController < ApplicationController
     @user = current_user
     # @jobs = Job.order(:id).page(params[:page])
     # Post.order(:name).page(params[:page]).per(2)
-    @jobs = Job.all
+    @jobs = Job.all.order(:id)
     # render json: Job.list(job_params), status: :ok
   end
 
