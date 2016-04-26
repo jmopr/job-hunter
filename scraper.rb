@@ -142,5 +142,4 @@ class JobScraper
   end
 end
 
-p ARGV
 JobScraper.new('http://www.indeed.com/', ARGV[0], ARGV[3]).scrape(ARGV[1], ARGV[2])
