@@ -49,17 +49,18 @@ class JobApplier
     url_for_analysis = "http://job-diana.herokuapp.com/users/jobs/#{@job.hex_id}"
     fit = category @job.score
     cover_letter_body = %Q(
-    Hey!
-    Thanks for taking the time to review my application. I actually wrote a script to automatically
-    apply to your job because it looks like it's a #{fit} fit for my skills - my matching algorithm
-    actually said there is #{percent}% chance you'd be interested in interviewing me. You can check
-    out the match profile I created for your job posting here: #{url_for_analysis}
-    I'd really love the opportunity to interview at #{company_name} for the open #{job_title} position.
-    Thanks again. You can reach me at #{phone_number} if you'd like to chat.
-    P.S. if you're interested in how my bot is actually handling applications for me, you can check
-    out the source code that applied on github: #{link_to_github}.
-    )
+Dear Hiring Manager,
 
+Hello, my name is Juan Ortiz. Nice to meet you!
+
+I actually wrote a bot to automatically apply to your job because it looks like it's a #{fit} fit for my skills - my matching algorithm actually said there is #{percent}% chance you'd be interested in interviewing me.
+
+You can check out the match profile I created for your job posting here: #{url_for_analysis} I'd really love the opportunity to interview at  #{company_name} for the open #{job_title} position.
+
+Thanks again. You can reach me at #{phone_number} if you'd like to chat.
+
+P.S. if you're interested in how my bot is actually handling applications for me, you can check out the source code that applied on github: #{link_to_github}.
+)
     # there is variation in the apply forms
     begin
       fill_in 'applicant.firstName', with: @user.first_name
