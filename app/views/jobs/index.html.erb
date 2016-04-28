@@ -1,4 +1,4 @@
-<h4>Jobs Found from Indeed(Easy to Apply)</h4>
+<h4>Jobs Found</h4>
 <div class= "container-fluid">
   <div class="row">
     <div class="col-xs-12 col-md-12">
@@ -12,6 +12,9 @@
       <%= text_field_tag(:location, nil, placeholder: 'City') %>
       <%= label_tag(:pages, "Pages to inspect") %>
       <%= text_field_tag(:pages, nil, placeholder: 'Number of Pages') %>
+      <p> Select website to get jobs from </p>
+      <%= check_box_tag 'indeed_scraper' %> <p>Indeed</p>
+      <%= check_box_tag 'angel_scraper' %> <p>Angel</p>
       <%= submit_tag("Find Jobs") %>
       <% end %>
 

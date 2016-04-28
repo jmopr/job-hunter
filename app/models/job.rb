@@ -1,7 +1,7 @@
 class Job < ActiveRecord::Base
   belongs_to :user
   validates :title, :company, :description, presence: true
-  validates :title, :company, uniqueness: true
+  validates_uniqueness_of :title, scope: [:company, :url]
   paginates_per 25
 
   scope :match, -> { where('score > 40') }
@@ -33,15 +33,15 @@ class Job < ActiveRecord::Base
   end
 
   # Searches for jobs.
-  def self.get_jobs(user, title, location, pages)
-    %x(bin/rails r scraper.rb "#{user.id}" "#{title}" "#{location}" "#{pages}")
+  def self.get_jobs(scraper, user, title, location, pages = "")
+    %x(bin/rails r #{scraper}.rb "#{user.id}" "#{title}" "#{location}" "#{pages}")
   end
 
   # Apply for the matching jobs.
-  def self.apply(user, jobs)
+  def self.apply(user, jobs, applier)
     jobs.each do |job|
       unless job.applied
-        %x(bin/rails r applier.rb "#{user.id}" "#{job.id}")
+        %x(bin/rails r #{applier}.rb "#{user.id}" "#{job.id}")
       end
     end
   end
