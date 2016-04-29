@@ -24,9 +24,7 @@ class JobApplier
     unless @job.applied
       visit @job.url
       unless page.has_css?('p.expired')
-        sleep(1)
         page.find('a.indeed-apply-button', match: :first).click
-        sleep(1)
 
         page.driver.within_frame(1) do
           page.driver.within_frame(0) do
@@ -78,7 +76,6 @@ P.S. if you're interested in how my bot is actually handling applications for me
     else
       apply
     end
-    sleep(1)
   end
 
   def complete_additional_steps

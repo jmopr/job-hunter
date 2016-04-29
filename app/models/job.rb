@@ -33,7 +33,7 @@ class Job < ActiveRecord::Base
   end
 
   # Searches for jobs.
-  def self.get_jobs(scraper, user, title, location, pages = "")
+  def self.get_jobs(scraper, user, title = "", location = "", pages = "")
     %x(bin/rails r #{scraper}.rb "#{user.id}" "#{title}" "#{location}" "#{pages}")
   end
 
