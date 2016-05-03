@@ -18,7 +18,7 @@
 //= require components
 //= require_tree .
 
-$(document).ready(function(){
+$(document).on("page:change", function(){
   $('input[value="Update Resume"]').attr('disabled', true);
   $('#user_document').bind("click", function(){
     if($('#user_document')[0].files.length == 0)
@@ -26,10 +26,12 @@ $(document).ready(function(){
     else
       $('input[value="Update Resume"]').attr('disabled', true);
     });
-});
 
-$(document).ready(function(){
   $('input[value="Delete"]').click(function(){
       return confirm('Are you sure you want to delete this item?');
   });
+
+  // $('#angel_scraper').click(function(){
+  //   $('input[name="pages"]').attr('disabled', this.checked)
+  // });
 });
