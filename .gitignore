@@ -17,5 +17,5 @@
 /tmp
 /.DS_Store
 /.byebug_history
-/.env
+/env.data
 /config/database.yml
