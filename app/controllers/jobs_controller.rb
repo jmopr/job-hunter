@@ -6,7 +6,7 @@ class JobsController < ApplicationController
   end
 
   def search
-    params['indeed_scraper'] == 'yes' ? applier = 'scraper' : applier = 'angelscraper'
+    params['indeed_scraper'] == '1' ? applier = 'scraper' : applier = 'angelscraper'
     @jobs = Job.get_jobs(applier, current_user, params[:title], params[:location], params[:pages])
     redirect_to users_jobs_path
   end
