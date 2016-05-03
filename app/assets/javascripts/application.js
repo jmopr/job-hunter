@@ -18,55 +18,21 @@
 //= require components
 //= require_tree .
 
+$(document).ready(function(){
+  $('input[name="commit"]').val('Update Resume').attr('disabled', true);
+  $('#user_document').bind("click", function(){
+    if($('#user_document')[0].files.length == 0)
+      $('input[name="commit"]').val('Update Resume').attr('disabled', false);
+    else
+      $('input[name="commit"]').val('Update Resume').attr('disabled', true);
+    });
+});
 
 // $(document).ready(function(){
-//     $('input[name="commit"]').val('Update Resume').attr('disabled', true);
-//     // $('#user_document').keyup(function(){
-//     $('#user_document').bind("click", function(){
-//       if($('#user_document').val())
-//         $('input[name="commit"]').val('Update Resume').attr('disabled', false);
-//       else
-//         $('input[name="commit"]').val('Update Resume').attr('disabled', true);
-//     });
-
-
-
-//     // $('input[name="commit"]').bind("click",function()
-//     // {
-//     //     var docVal = $('#user_document').val();
-//     //     if(docVal == '')
-//     //     {
-//     //         alert("empty input file");
-//     //
-//     //     }
-//     //     return false;
-//     // });
-//     $(function() {
-//      $('input[name="commit"]').change(function (){
-//        var fileName = $(this).val();
-//        $(".filename").html(fileName);
-//      });
-//   });
-
-
+  // $('input[name="_method"]').val('delete').click(function(){
+  //     alert("Are you sure you want to delete the jobs?");
+  // });
+  // $('input[type="submit"]').val('Apply to Jobs').click(function(){
+  //     alert("Are you sure you want to delete the jobs?");
+  // });
 // });
-
-
-
-// $(document).ready(function() {
-//     $('#upload').bind("click",function()
-//     {
-//         var imgVal = $('#uploadImage').val();
-//         if(imgVal=='')
-//         {
-//             alert("empty input file");
-//
-//         }
-//         return false;
-//
-//     });
-// });
-// </script>
-//
-// <input type="file" name="image" id="uploadImage" size="30" />
-// <input type="submit" name="upload" id="upload"  class="send_upload" value="upload" />
