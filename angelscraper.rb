@@ -6,6 +6,8 @@ require 'json'
 require 'timeout'
 require 'capybara'
 require './matcher'
+require 'dotenv'
+Dotenv.load
 
 class JobScraper
   include Capybara::DSL
@@ -41,7 +43,7 @@ class JobScraper
     # using angel account
     log_link = page.find_link('Log in').click
     fill_in 'user[email]', :with => @user.email
-    fill_in 'user[password]', :with => "xxxx"
+    fill_in 'user[password]', :with => ENV['ANGEL_KEY']
     page.find("input[name='commit']").click
   end
 

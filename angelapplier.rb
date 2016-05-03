@@ -3,6 +3,8 @@ require 'capybara-webkit'
 require 'cgi'
 require 'timeout'
 require 'capybara'
+require 'dotenv'
+Dotenv.load
 
 class JobApplier
   include Capybara::DSL
@@ -42,7 +44,7 @@ class JobApplier
     # using angel account
     log_link = page.find_link('Log in').click
     fill_in 'user[email]', :with => @user.email
-    fill_in 'user[password]', :with => "xxxx"
+    fill_in 'user[password]', :with => ENV['ANGEL_KEY']
     page.find("input[name='commit']").click
 
     # using linked in uncomment below and comment above.
