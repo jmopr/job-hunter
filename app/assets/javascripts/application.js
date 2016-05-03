@@ -19,19 +19,39 @@
 //= require_tree .
 
 $(document).on("page:change", function(){
+
+  // Disable Resume button if empty.
   $('input[value="Update Resume"]').attr('disabled', true);
-  $('#user_document').bind("click", function(){
-    if($('#user_document')[0].files.length == 0)
-      $('input[value="Update Resume"]').attr('disabled', false);
-    else
+  $('#user_document').on("change", function(){
+    if($('#user_document').val() == 0)
       $('input[value="Update Resume"]').attr('disabled', true);
+    else
+      $('input[value="Update Resume"]').attr('disabled', false);
     });
 
+  // Confirm deletion of jobs.
   $('input[value="Delete"]').click(function(){
       return confirm('Are you sure you want to delete this item?');
   });
 
-  // $('#angel_scraper').click(function(){
-  //   $('input[name="pages"]').attr('disabled', this.checked)
-  // });
+  // Disable pages text input until indeed option is clicked.
+  $('#pages').attr('disabled', true);
+
+  // Uncheck a box when checking another one.
+  $('input[name="indeed_scraper"]').on('change', function() {
+    $('#pages').attr('disabled', !this.checked);
+    $('input[name="angel_scraper"]').not(this).prop('checked', false);
+  });
+  $('input[name="angel_scraper"]').on('change', function() {
+    $('#pages').attr('disabled', true);
+    $('input[name="indeed_scraper"]').not(this).prop('checked', false);
+  });
+
+  // Match and apply page.
+  $('input[name="indeed_applier"]').on('change', function() {
+    $('input[name="angel_applier"]').not(this).prop('checked', false);
+  });
+  $('input[name="angel_applier"]').on('change', function() {
+    $('input[name="indeed_applier"]').not(this).prop('checked', false);
+  });
 });
