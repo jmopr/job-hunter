@@ -6,7 +6,8 @@ class JobsController < ApplicationController
   end
 
   def search
-    params['indeed_scraper'] == '1' ? applier = 'scraper' : applier = 'angelscraper'
+    byebug
+    params['angel_scraper'] == 'yes' ? applier = 'angelscraper' : applier = 'scraper'
     @jobs = Job.get_jobs(applier, current_user, params[:title], params[:location], params[:pages])
     redirect_to users_jobs_path
   end
@@ -18,7 +19,7 @@ class JobsController < ApplicationController
 
   def apply
     @user = current_user
-    params['indeed_applier'] == 'on' ? applier = 'applier' : applier = 'angelapplier'
+    params['angel_applier'] == 'yes' ? applier = 'angelapplier' : applier = 'applier'
     Job.apply(@user, Job.match, applier)
     redirect_to users_match_path
   end

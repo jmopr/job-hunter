@@ -19,20 +19,17 @@
 //= require_tree .
 
 $(document).ready(function(){
-  $('input[name="commit"]').val('Update Resume').attr('disabled', true);
+  $('input[value="Update Resume"]').attr('disabled', true);
   $('#user_document').bind("click", function(){
     if($('#user_document')[0].files.length == 0)
-      $('input[name="commit"]').val('Update Resume').attr('disabled', false);
+      $('input[value="Update Resume"]').attr('disabled', false);
     else
-      $('input[name="commit"]').val('Update Resume').attr('disabled', true);
+      $('input[value="Update Resume"]').attr('disabled', true);
     });
 });
 
-// $(document).ready(function(){
-  // $('input[name="_method"]').val('delete').click(function(){
-  //     alert("Are you sure you want to delete the jobs?");
-  // });
-  // $('input[type="submit"]').val('Apply to Jobs').click(function(){
-  //     alert("Are you sure you want to delete the jobs?");
-  // });
-// });
+$(document).ready(function(){
+  $('input[value="Delete"]').click(function(){
+      return confirm('Are you sure you want to delete this item?');
+  });
+});
