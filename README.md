@@ -3,7 +3,7 @@ Job Hunter
 
 Application developed to scrape and apply for jobs from the following sources:
 - www.indeed.com
-- http://angel.co
+- https://angel.co/jobs
 - more coming soon
 
 The list of jobs will be limited to the "easy to apply" ones from the page. The application is personalized by giving the user the capabilities of entering his/her information to store and later use this data. The user is capable of uploading his/her resume and updating a new version of it. The search parameters, which include the job title, location and pages to inspect, are determined by the user input. 
