@@ -30,11 +30,14 @@ class JobScraper
     visit @url
     page.find('.home_ctas.home_talent_jobs_button.g-button.larger.blue', match: :first).click
     login
-    # Added to remove Florida.
-    find('.remove-filter.delete', match: :first).click
-    sleep(10)
+    # Added to remove Florida (optional)
+    find("img[data-value='Florida']", match: :first).click
+    sleep(1)
+    find("img[data-value='Software Engineer']", match: :first).click
+    sleep(1)
+    
     fill_info(skills, location)
-    sleep(5)
+    sleep(1)
     get_jobs
     create_jobs
   end
@@ -61,9 +64,17 @@ class JobScraper
   end
 
   def get_jobs
+    now = Time.now
+    counter = 1
     # gets to the end of the page to accumulate companies
     until page.has_selector?('.end.hidden.section', :visible => true) || page.has_selector?('.none_notice')
-      page.execute_script "window.scrollBy(0, 10000)"
+      if Time.now < now + counter
+        next
+      else
+        page.execute_script "window.scrollBy(0, 10000)"
+      end
+      counter += 1
+      break if counter > 10
     end
 
     company_sections = all('.djl87.job_listings.fbe70.browse_startups_table._a._jm')
