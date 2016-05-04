@@ -6,7 +6,7 @@ var JobsList = React.createClass({
           <td>{job.id}</td>
           <td>{job.hex_id}</td>
           <td>{job.title}</td>
-          <td>{job.description}</td>
+          <td>{(job.description).substring(0, 150) + "..."}</td>
           <td>{job.score}</td>
           <td>{job.company}</td>
           <td>{job.location}</td>
