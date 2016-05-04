@@ -21,7 +21,7 @@
         <td class="text-center"><%= "#{job.title}" %></td>
         <td class="text-center"><%= "#{job.company}" %></td>
         <td class="text-center"><%= "#{job.location}" %></td>
-        <td class="text-center"><%= "#{job.description}" %></td>
+        <td class="text-center"><%= truncate("#{job.description}", length: 100) %></td>
         <td class="text-center"><%= "#{job.score.round(2)}" %></td>
         <td class="text-center"><%= "#{job.post_date}" %></td>
         <td class="text-center"><%= "#{job.url}" %></td>
