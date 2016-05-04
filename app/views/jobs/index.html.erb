@@ -10,8 +10,8 @@
       <%= text_field_tag(:title, nil, placeholder: 'Job Title') %>
       <%= label_tag(:location, "Enter city, state or zip code") %>
       <%= text_field_tag(:location, nil, placeholder: 'City') %>
-      <%= label_tag(:pages, "Pages to inspect") %>
-      <%= text_field_tag(:pages, nil, placeholder: 'Number of Pages') %>
+      <%= label_tag(:pages, "Pages to inspect (not needed for angel site)") %>
+      <%= number_field_tag(:pages, nil, placeholder: 'Number of Pages') %>
       <p> Select website to get jobs from (angel.co is default) </p>
       <%= check_box_tag 'angel_scraper', 'yes', true %> <p>Angel</p>
       <%= check_box_tag 'indeed_scraper' %> <p>Indeed</p>

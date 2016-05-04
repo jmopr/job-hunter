@@ -27,7 +27,7 @@ $(document).on("page:change", function(){
       $('input[value="Update Resume"]').attr('disabled', true);
     else
       $('input[value="Update Resume"]').attr('disabled', false);
-    });
+  });
 
   // Confirm deletion of jobs.
   $('input[value="Delete"]').click(function(){
@@ -39,7 +39,7 @@ $(document).on("page:change", function(){
 
   // Uncheck a box when checking another one.
   $('input[name="indeed_scraper"]').on('change', function() {
-    $('#pages').attr('disabled', !this.checked);
+    $('#pages').attr('disabled', false);
     $('input[name="angel_scraper"]').not(this).prop('checked', false);
   });
   $('input[name="angel_scraper"]').on('change', function() {
@@ -54,4 +54,11 @@ $(document).on("page:change", function(){
   $('input[name="angel_applier"]').on('change', function() {
     $('input[name="indeed_applier"]').not(this).prop('checked', false);
   });
+
+  // $('input[type="checkbox"]').on("change", function() {
+  //   if($('input[type="checkbox"]').prop('checked', false))
+  //     $('input[value="Find Jobs"]').attr('disabled', true);
+  //   else
+  //     $('input[value="Find Jobs"]').attr('disabled', false);
+  // });
 });
