@@ -35,7 +35,7 @@ class JobScraper
     sleep(1)
     find("img[data-value='Software Engineer']", match: :first).click
     sleep(1)
-    
+
     fill_info(skills, location)
     sleep(1)
     get_jobs
@@ -74,7 +74,7 @@ class JobScraper
         page.execute_script "window.scrollBy(0, 10000)"
       end
       counter += 1
-      break if counter > 10
+      break if counter > 20
     end
 
     company_sections = all('.djl87.job_listings.fbe70.browse_startups_table._a._jm')
