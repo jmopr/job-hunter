@@ -2,8 +2,9 @@
 <div class= "container-fluid">
   <div class="row">
     <div class="col-xs-12 col-md-12">
+      <%= paginate @jobs %>
       <%= react_component('JobsBox', jobs: @jobs) %>
-      <p><%= paginate @jobs %></p>
+      <%= paginate @jobs %>
 
       <%= form_tag("/search", method: "get") do %>
       <%= label_tag(:title, "Enter job title or keywords") %>
