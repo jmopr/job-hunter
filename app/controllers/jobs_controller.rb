@@ -44,6 +44,11 @@ class JobsController < ApplicationController
     redirect_to users_jobs_path
   end
 
+  def destroy_multiple
+    Job.destroy(params[:jobs]) unless params[:jobs].nil?
+    redirect_to users_match_path
+  end
+
   private
     def job_params
       params.require(:job).permit(:title, :company, :description)

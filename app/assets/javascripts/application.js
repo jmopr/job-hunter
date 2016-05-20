@@ -30,7 +30,10 @@ $(document).on("page:change", function(){
   });
 
   // Confirm deletion of jobs.
-  $('input[value="Delete"]').click(function(){
+  $('input[value="Delete Jobs"]').click(function(){
+      return confirm('Are you sure you want to delete this item?');
+  });
+  $('input[value="Delete Selected Jobs"]').click(function(){
       return confirm('Are you sure you want to delete this item?');
   });
 

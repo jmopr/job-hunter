@@ -2,9 +2,12 @@
 <div class= "container-fluid">
   <div class="row">
     <div class="col-xs-12 col-md-12">
-      <%= paginate @jobs %>
+      <p><%= paginate @jobs %></p>
+      <p><%= link_to "Back To General Jobs", users_jobs_path %></p>
+      <%= form_tag destroy_multiple_jobs_path, method: :delete do %>
       <table class="table table-striped table-bordered table-condensed">
         <tr>
+          <th class="text-center"> Job </th>
           <th class="text-center"> Job ID </th>
           <th class="text-center"> Job Hex_ID </th>
           <th class="text-center"> Title </th>
@@ -17,6 +20,7 @@
           <th class="text-center"> Applied </th>
         </tr>
         <% @jobs.each do |job| %>
+        <td class="text-center"><%= check_box_tag "jobs[]", job.id %></td>
         <td class="text-center"><%= "#{job.id}" %></td>
         <td class="text-center"><%= "#{job.hex_id}" %></td>
         <td class="text-center"><%= "#{job.title}" %></td>
@@ -30,11 +34,12 @@
       </tr>
       <% end %>
     </table>
-    <%= paginate @jobs %>
+    <%= submit_tag "Delete Selected Jobs" %>
+    <% end %>
+    <br>
 
-    <p>
-      <%= link_to_if !@user.document.url.nil?, 'Resume', @user.document.url %>
-    </p>
+    <p><%= paginate @jobs %></p>
+    <p><%= link_to_if !@user.document.url.nil?, 'Resume', @user.document.url %></p>
 
     <form method="get" action="apply" class="button_to">
       <p> Select website jobs to apply </p>
@@ -43,7 +48,7 @@
       <input value="Apply to Jobs" type="submit" />
     </form>
 
-    <%= link_to "Back To General Jobs", users_jobs_path %>
+    <p><%= link_to "Back To General Jobs", users_jobs_path %></p>
     </div>
   </div>
 </div>
