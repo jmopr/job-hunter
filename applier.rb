@@ -127,7 +127,10 @@ P.S. if you're interested in how my bot is actually handling applications for me
       'How did you hear about this job?' => 'indeed.com',
       'Github' => "https://github.com/#{@user.github}",
       'In 150 characters or fewer, tell us what makes you unique. Try to be creative and say something that will catch our eye!' => "I am a driven individual that will not stop until I find a solution to any type of problem.",
-      'What are your salary requirements (excluding bonus, commission, equity)?' => 'Entry-Level'
+      'What are your salary requirements (excluding bonus, commission, equity)?' => 'Entry-Level',
+      'Address Line' => '3011 Marta Circle Apt. 102',
+      'City' => 'Kissimmee',
+      'State' => 'Florida'
     }
 
     within('.question-page') do

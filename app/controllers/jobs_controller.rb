@@ -26,34 +26,22 @@ class JobsController < ApplicationController
   def show
     @job = Job.find_by(hex_id: params[:id])
     @user = current_user || User.find(@job.user_id)
-    #   render json: Job.find(params[:id]), status: :ok
-    # rescue
-    #   render json: {job: {errors: "job not found"}}, status: :not_found
   end
 
   def index
     @user = current_user
     @jobs = Job.order(:id).page params[:page]
-    # render json: Job.list(job_params), status: :ok
   end
 
   def create
     @job = Job.new(job_params)
     @job.save
-    # if job.save
-    #   render json: job, status: :created, location: job
-    # else
-    #   render json: job.errors, status: :unprocessable_entity
-    # end
   end
 
   def destroy
     Job.delete_all
     Job.reset_pk_sequence
     redirect_to users_jobs_path
-  #   render json: Job.all
-  # rescue
-  #   render json: {job: {errors: "job not found"}}, status: :not_found
   end
 
   private
