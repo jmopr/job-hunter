@@ -14,4 +14,3 @@ If you have any questions, contact the maintainers of this project:
 
 - Juan Ortiz (jmopr83@gmail.com)
 - Rodney Perez (rodneyeperez@gmail.com)
-- Not You! HAHAHAA
