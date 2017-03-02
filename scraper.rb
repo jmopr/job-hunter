@@ -14,7 +14,7 @@ class JobScraper
     # Capybara.default_driver = :selenium
     # Capybara.javascript_driver = :selenium
     Capybara::Webkit.configure do |config|
-      config.allow_url("http://www.indeed.com/")
+      config.allow_url("www.indeed.com")
       config.block_unknown_urls
     end
     @job_links = []
