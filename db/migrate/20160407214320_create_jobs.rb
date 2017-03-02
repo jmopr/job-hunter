@@ -3,7 +3,7 @@ class CreateJobs < ActiveRecord::Migration
     create_table :jobs do |t|
       t.string :title
       t.date :post_date
-      t.string :description
+      t.text :description
       t.boolean :applied
 
       t.timestamps null: false
