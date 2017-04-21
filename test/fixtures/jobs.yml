@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  title: MyString1
   post_date: 2016-04-07
-  description: MyString
+  description: MyString1
   applied: false
 
 two:
-  title: MyString
+  title: MyString2
   post_date: 2016-04-07
-  description: MyString
+  description: MyString2
   applied: false
