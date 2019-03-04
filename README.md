@@ -13,8 +13,7 @@ The application has a matching algorithm that lets the user apply to jobs in whi
 ## Ubuntu 16.04 minimal install.
 ```shell
 apt update
-apt install ruby ruby-bundler build-essential zlib1g-dev sqlite3 libpq-dev libsqlite3-dev git qt4-qmake qt4-default libqtwebkit-dev libqtwebkit4 nodejs
-sudo apt install git
+apt install ruby ruby-bundler build-essential zlib1g-dev sqlite3 libpq-dev libsqlite3-dev git qt4-qmake qt4-default libqtwebkit-dev libqtwebkit4 nodejs git
 git clone https://github.com/jmopr/job-hunter.git
 cd job-hunter/
 bundle install
